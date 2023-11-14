@@ -20,29 +20,13 @@ local doxygen        = {
     end,
 }
 
-local gruvbox        = {
-    "morhetz/gruvbox",
+local colorscheme    = {
+    "rebelot/kanagawa.nvim",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
-    init = function()
+    config = function()
         -- load the colorscheme here
-        --
-        vim.api.nvim_create_autocmd("ColorScheme", {
-            pattern = "*",
-            callback = function()
-                -- appearance
-                vim.api.nvim_set_hl(0, 'WhichKey', { fg = '#FF8080' })
-                vim.api.nvim_set_hl(0, 'WhichKeyGroup', { fg = '#C70039' })
-                vim.api.nvim_set_hl(0, 'WhichKeySeparator', { fg = '#FFCF96' })
-                vim.api.nvim_set_hl(0, 'WhichKeyDesc', { fg = '#00ADB5' })
-                vim.api.nvim_set_hl(0, 'WhichKeyFloat', { bg = '#222831' })
-                vim.api.nvim_set_hl(0, 'WhichKeyBorder', { bg = '#222831' })
-                vim.api.nvim_set_hl(0, 'WhichKeyValue', { fg = '#EEEEEE' })
-            end,
-        })
-
-
-        vim.cmd([[colorscheme gruvbox]])
+        vim.cmd("colorscheme kanagawa-wave")
     end,
 }
 
@@ -59,6 +43,20 @@ local which_key      = {
     init = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
+
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            pattern = "*",
+            callback = function()
+                -- appearance
+                -- vim.api.nvim_set_hl(0, 'WhichKey', { fg = '#FF8080' })
+                -- vim.api.nvim_set_hl(0, 'WhichKeyGroup', { fg = '#C70039' })
+                -- vim.api.nvim_set_hl(0, 'WhichKeySeparator', { fg = '#FFCF96' })
+                -- vim.api.nvim_set_hl(0, 'WhichKeyDesc', { fg = '#00ADB5' })
+                -- vim.api.nvim_set_hl(0, 'WhichKeyFloat', { bg = '#222831' })
+                -- vim.api.nvim_set_hl(0, 'WhichKeyBorder', { bg = '#222831' })
+                vim.api.nvim_set_hl(0, 'WhichKeyValue', { fg = '#EEEEEE' })
+            end,
+        })
     end,
     opts = {
         -- your configuration comes here
@@ -153,47 +151,6 @@ local lualine        = {
     }
 }
 
-local fzf_vim        = {
-    "junegunn/fzf.vim",
-    init = function()
-        -- Initialize configuration dictionary
-        vim.g.fzf_vim = {}
-        -- Set fzf default command
-        vim.g.FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!.idea'"
-
-        -- Set fzf colors
-        vim.g.fzf_colors = {
-            fg = { "fg", "Normal" },
-            bg = { "bg", "Normal" },
-            hl = { "fg", "Comment" },
-            ["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
-            ["bg+"] = { "bg", "CursorLine", "CursorColumn" },
-            ["hl+"] = { "fg", "Statement" },
-            info = { "fg", "PreProc" },
-            border = { "fg", "Ignore" },
-            prompt = { "fg", "Conditional" },
-            pointer = { "fg", "Exception" },
-            marker = { "fg", "Keyword" },
-            spinner = { "fg", "Label" },
-            header = { "fg", "Comment" }
-        }
-
-        -- Set fzf action to use build_quickfix_list function
-        vim.g.fzf_action = { ["ctrl-v"] = "vsplit" }
-
-        -- Set preview window settings
-        vim.g.fzf_preview_window = { "right,50%", "ctrl-t" }
-        vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
-
-        -- Map keys to fzf commands
-        local opts = { silent = true, noremap = true }
-        keyset("n", "<Leader><Leader>", "<cmd>Files<cr>", opts)
-        keyset("n", "<Leader>ag", ":Rg <C-R><C-W><CR>", opts)
-        keyset("n", "<Leader>/", "<cmd>Rg<CR>", opts)
-        keyset("n", "<F1>", "<cmd>Maps<cr>", opts)
-    end
-}
-
 local spectre        = {
     "nvim-pack/nvim-spectre",
     dependencies = "nvim-lua/plenary.nvim",
@@ -262,7 +219,57 @@ local nvim_colorizer = {
     end
 }
 
+local last_place     = {
+    "ethanholz/nvim-lastplace",
+    event = "BufRead",
+    config = function()
+        require("nvim-lastplace").setup({
+            lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+            lastplace_ignore_filetype = {
+                "gitcommit", "gitrebase", "svn", "hgcommit",
+            },
+            lastplace_open_folds = true,
+        })
+    end,
+}
+
+local telescope      = {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.4',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    init = function()
+        local colors = require("catppuccin.palettes").get_palette()
+        local TelescopeColor = {
+            TelescopeMatching = { fg = colors.flamingo },
+            TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+
+            TelescopePromptPrefix = { bg = colors.surface0 },
+            TelescopePromptNormal = { bg = colors.surface0 },
+            TelescopeResultsNormal = { bg = colors.mantle },
+            TelescopePreviewNormal = { bg = colors.mantle },
+            TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+            TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+            TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+            TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+            TelescopeResultsTitle = { fg = colors.mantle },
+            TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+        }
+
+        for hl, col in pairs(TelescopeColor) do
+            vim.api.nvim_set_hl(0, hl, col)
+        end
+    end,
+    config = function()
+        local builtin = require('telescope.builtin')
+        vim.keymap.set('n', '<leader><leader>', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>ag', builtin.grep_string, {})
+        vim.keymap.set('n', '<leader>/', builtin.live_grep, {})
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+    end,
+}
+
 require("lazy").setup({
+    "catppuccin/nvim",
     -- "neoclide/coc.nvim" is a powerful, extensible Vim/Neovim plugin for autocompletion, linting, and language server protocol support.
     "neoclide/coc.nvim",
     -- "tpope/vim-sensible" is a Vim plugin that provides sensible default settings for Vim.
@@ -275,8 +282,6 @@ require("lazy").setup({
     lazygit,
     -- "iamcco/markdown-preview.nvim" is a Vim plugin for realtime markdown previewing
     "iamcco/markdown-preview.nvim",
-    -- "zhimsel/vim-stay" is a Vim plugin that preserves the cursor position and opened folds when you reopen a file.
-    "zhimsel/vim-stay",
     -- "tpope/vim-surround" is a Vim plugin that provides functionalities to easily delete, change and add surroundings in pairs.
     "tpope/vim-surround",
     -- 'akinsho/bufferline.nvim' is a Vim plugin that provides a tab-like buffer line with close icons and buffer sorting.
@@ -287,9 +292,6 @@ require("lazy").setup({
     comment,
     -- A Neovim status line plugin written in Lua for better performance and customization.
     lualine,
-    -- This Vim plugin integrates the fuzzy finder 'fzf' into Vim for fast file navigation and searching.
-    "junegunn/fzf",
-    fzf_vim,
     -- This Vim plugin, "nvim-spectre", is a tool for Neovim that allows you to search and replace text across multiple files.
     spectre,
     -- This Vim plugin, "madox2/vim-ai", is used to integrate AI features into the Vim text editor.
@@ -299,7 +301,11 @@ require("lazy").setup({
     -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
     which_key,
     -- "morhetz/gruvbox" is a retro groove color scheme for Vim.
-    gruvbox,
+    colorscheme,
+    -- This Vim plugin "ethanholz/nvim-lastplace" helps to reopen files at the last edited position.
+    last_place,
+    -- This plugin 'nvim-telescope/telescope.nvim' is a highly extensible fuzzy finder over lists for Neovim.
+    telescope,
 })
 
 -- ============================================================================
