@@ -13,14 +13,32 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local doxygen        = {
+local toggle_term        = {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = true,
+    init = function()
+        function _G.set_terminal_keymaps()
+            local opts = { buffer = 0 }
+            vim.keymap.set('t', '<leader>t', "<cmd>ToggleTerm<cr>", opts)
+        end
+
+        -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+        vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+    end,
+    keys = {
+        { "<leader>t", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
+    },
+}
+
+local doxygentoolkit_vim = {
     "vim-scripts/DoxygenToolkit.vim",
     config = function()
         vim.g.DoxygenToolkit_authorName = "bredkim06@gmail.com"
     end,
 }
 
-local colorscheme    = {
+local colorscheme        = {
     "rebelot/kanagawa.nvim",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -30,14 +48,14 @@ local colorscheme    = {
     end,
 }
 
-local lazygit        = {
+local lazygit_nvim       = {
     "kdheepak/lazygit.nvim",
     keys = {
-        { "<F2>", "<cmd>LazyGit<cr>" },
+        { "<F2>", "<cmd>LazyGit<cr>", desc = "lazygit" },
     }
 }
 
-local which_key      = {
+local which_key_nvim     = {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
@@ -65,7 +83,7 @@ local which_key      = {
     }
 }
 
-local bufferline     = {
+local bufferline_nvim    = {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -74,7 +92,7 @@ local bufferline     = {
     end
 }
 
-local treesitter     = {
+local nvim_treesitter    = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
@@ -95,7 +113,7 @@ local treesitter     = {
     },
 }
 
-local comment        = {
+local comment_nvim       = {
     'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup {
@@ -106,7 +124,7 @@ local comment        = {
     end,
 }
 
-local lualine        = {
+local lualine_nvim       = {
     "nvim-lualine/lualine.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     opts = {
@@ -151,7 +169,7 @@ local lualine        = {
     }
 }
 
-local spectre        = {
+local nvim_spectre       = {
     "nvim-pack/nvim-spectre",
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
@@ -180,7 +198,7 @@ local spectre        = {
     end,
 }
 
-local vim_ai         = {
+local vim_ai             = {
     "madox2/vim-ai",
     config = function()
         vim.g.vim_ai_complete = {
@@ -212,14 +230,14 @@ local vim_ai         = {
     end
 }
 
-local nvim_colorizer = {
+local nvim_colorizer_lua = {
     "norcalli/nvim-colorizer.lua",
     config = function()
         require 'colorizer'.setup()
     end
 }
 
-local last_place     = {
+local nvim_lastplace     = {
     "ethanholz/nvim-lastplace",
     event = "BufRead",
     config = function()
@@ -233,7 +251,7 @@ local last_place     = {
     end,
 }
 
-local telescope      = {
+local telescope_nvim     = {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.4',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -264,7 +282,7 @@ local telescope      = {
         vim.keymap.set('n', '<leader><leader>', builtin.find_files, {})
         vim.keymap.set('n', '<leader>ag', builtin.grep_string, {})
         vim.keymap.set('n', '<leader>/', builtin.live_grep, {})
-        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        vim.keymap.set('n', '<F1>', "<cmd>Telescope<cr>", {})
     end,
 }
 
@@ -277,35 +295,36 @@ require("lazy").setup({
     -- "sindrets/diffview.nvim" is a Neovim plugin for easily reviewing and navigating diffs.
     "sindrets/diffview.nvim",
     -- "vim-scripts/DoxygenToolkit.vim": a Vim plugin for generating Doxygen documentation quickly and easily.
-    doxygen,
+    doxygentoolkit_vim,
     -- "kdheepak/lazygit.nvim" is a Vim plugin for integrating the lazygit terminal UI within the Neovim environment.
-    lazygit,
+    lazygit_nvim,
     -- "iamcco/markdown-preview.nvim" is a Vim plugin for realtime markdown previewing
     "iamcco/markdown-preview.nvim",
     -- "tpope/vim-surround" is a Vim plugin that provides functionalities to easily delete, change and add surroundings in pairs.
     "tpope/vim-surround",
     -- 'akinsho/bufferline.nvim' is a Vim plugin that provides a tab-like buffer line with close icons and buffer sorting.
-    bufferline,
+    bufferline_nvim,
     -- This plugin 'nvim-treesitter/nvim-treesitter' is used for syntax highlighting, indentation, and code navigation in Neovim using the Tree-sitter parser.
-    treesitter,
+    nvim_treesitter,
     -- This Vim plugin, 'numToStr/Comment.nvim', is used for adding, deleting, and navigating through comments in Neovim.
-    comment,
+    comment_nvim,
     -- A Neovim status line plugin written in Lua for better performance and customization.
-    lualine,
+    lualine_nvim,
     -- This Vim plugin, "nvim-spectre", is a tool for Neovim that allows you to search and replace text across multiple files.
-    spectre,
+    nvim_spectre,
     -- This Vim plugin, "madox2/vim-ai", is used to integrate AI features into the Vim text editor.
     vim_ai,
     -- This Vim plugin ("norcalli/nvim-colorizer.lua") provides functionality for colorizing text in Neovim.
-    nvim_colorizer,
+    nvim_colorizer_lua,
     -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
-    which_key,
+    which_key_nvim,
     -- "morhetz/gruvbox" is a retro groove color scheme for Vim.
     colorscheme,
     -- This Vim plugin "ethanholz/nvim-lastplace" helps to reopen files at the last edited position.
-    last_place,
+    nvim_lastplace,
     -- This plugin 'nvim-telescope/telescope.nvim' is a highly extensible fuzzy finder over lists for Neovim.
-    telescope,
+    telescope_nvim,
+    toggle_term,
 })
 
 -- ============================================================================
