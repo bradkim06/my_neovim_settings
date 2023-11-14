@@ -13,42 +13,52 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local doxygen    = {
+local doxygen        = {
     "vim-scripts/DoxygenToolkit.vim",
-    init = function()
+    config = function()
         vim.g.DoxygenToolkit_authorName = "bredkim06@gmail.com"
     end,
 }
 
-local gruvbox    = {
+local gruvbox        = {
     "morhetz/gruvbox",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
+    init = function()
         -- load the colorscheme here
+        --
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            pattern = "*",
+            callback = function()
+                -- appearance
+                vim.api.nvim_set_hl(0, 'WhichKey', { fg = '#FF8080' })
+                vim.api.nvim_set_hl(0, 'WhichKeyGroup', { fg = '#C70039' })
+                vim.api.nvim_set_hl(0, 'WhichKeySeparator', { fg = '#FFCF96' })
+                vim.api.nvim_set_hl(0, 'WhichKeyDesc', { fg = '#00ADB5' })
+                vim.api.nvim_set_hl(0, 'WhichKeyFloat', { bg = '#222831' })
+                vim.api.nvim_set_hl(0, 'WhichKeyBorder', { bg = '#222831' })
+                vim.api.nvim_set_hl(0, 'WhichKeyValue', { fg = '#EEEEEE' })
+            end,
+        })
+
+
         vim.cmd([[colorscheme gruvbox]])
     end,
 }
 
-local lazygit    = {
+local lazygit        = {
     "kdheepak/lazygit.nvim",
     keys = {
         { "<F2>", "<cmd>LazyGit<cr>" },
     }
 }
 
-local which_key  = {
+local which_key      = {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
-
-        -- appearance
-        vim.api.nvim_set_hl(0, 'FloatBorder', { bg = '#3B4252', fg = '#5E81AC' })
-        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#3B4252' })
-        vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = '#3B4252' })
-        vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = '#3B4252' })
     end,
     opts = {
         -- your configuration comes here
@@ -57,16 +67,16 @@ local which_key  = {
     }
 }
 
-local bufferline = {
+local bufferline     = {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
-    init = function()
+    config = function()
         require("bufferline").setup {}
     end
 }
 
-local treesitter = {
+local treesitter     = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
@@ -87,7 +97,7 @@ local treesitter = {
     },
 }
 
-local comment    = {
+local comment        = {
     'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup {
@@ -98,7 +108,7 @@ local comment    = {
     end,
 }
 
-local lualine    = {
+local lualine        = {
     "nvim-lualine/lualine.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     opts = {
@@ -143,14 +153,7 @@ local lualine    = {
     }
 }
 
-local neoscroll  = {
-    "karb94/neoscroll.nvim",
-    config = function()
-        require('neoscroll').setup {}
-    end
-}
-
-local fzf_vim    = {
+local fzf_vim        = {
     "junegunn/fzf.vim",
     init = function()
         -- Initialize configuration dictionary
@@ -183,17 +186,18 @@ local fzf_vim    = {
         vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
 
         -- Map keys to fzf commands
-        keyset("n", "<Leader><Leader>", "<cmd>Files<cr>", { silent = true })
-        keyset("n", "<Leader>ag", "<cmd>Rg <C-R><C-W><CR>", { silent = true })
-        keyset("n", "<Leader>/", "<cmd>Rg<CR>", { silent = true })
-        keyset("n", "<F1>", "<cmd>Maps<cr>", { silent = true })
+        local opts = { silent = true, noremap = true }
+        keyset("n", "<Leader><Leader>", "<cmd>Files<cr>", opts)
+        keyset("n", "<Leader>ag", ":Rg <C-R><C-W><CR>", opts)
+        keyset("n", "<Leader>/", "<cmd>Rg<CR>", opts)
+        keyset("n", "<F1>", "<cmd>Maps<cr>", opts)
     end
 }
 
-local spectre    = {
+local spectre        = {
     "nvim-pack/nvim-spectre",
     dependencies = "nvim-lua/plenary.nvim",
-    init = function()
+    config = function()
         require('spectre').setup({
             mapping = {
                 ['send_to_qf'] = {
@@ -219,9 +223,9 @@ local spectre    = {
     end,
 }
 
-local vim_ai     = {
+local vim_ai         = {
     "madox2/vim-ai",
-    init = function()
+    config = function()
         vim.g.vim_ai_complete = {
             engine = "chat",
             options = {
@@ -251,6 +255,13 @@ local vim_ai     = {
     end
 }
 
+local nvim_colorizer = {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+        require 'colorizer'.setup()
+    end
+}
+
 require("lazy").setup({
     -- "neoclide/coc.nvim" is a powerful, extensible Vim/Neovim plugin for autocompletion, linting, and language server protocol support.
     "neoclide/coc.nvim",
@@ -260,8 +271,6 @@ require("lazy").setup({
     "sindrets/diffview.nvim",
     -- "vim-scripts/DoxygenToolkit.vim": a Vim plugin for generating Doxygen documentation quickly and easily.
     doxygen,
-    -- "morhetz/gruvbox" is a retro groove color scheme for Vim.
-    gruvbox,
     -- "kdheepak/lazygit.nvim" is a Vim plugin for integrating the lazygit terminal UI within the Neovim environment.
     lazygit,
     -- "iamcco/markdown-preview.nvim" is a Vim plugin for realtime markdown previewing
@@ -270,8 +279,6 @@ require("lazy").setup({
     "zhimsel/vim-stay",
     -- "tpope/vim-surround" is a Vim plugin that provides functionalities to easily delete, change and add surroundings in pairs.
     "tpope/vim-surround",
-    -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
-    which_key,
     -- 'akinsho/bufferline.nvim' is a Vim plugin that provides a tab-like buffer line with close icons and buffer sorting.
     bufferline,
     -- This plugin 'nvim-treesitter/nvim-treesitter' is used for syntax highlighting, indentation, and code navigation in Neovim using the Tree-sitter parser.
@@ -280,8 +287,6 @@ require("lazy").setup({
     comment,
     -- A Neovim status line plugin written in Lua for better performance and customization.
     lualine,
-    -- This Vim plugin allows for smooth scrolling in Neovim.
-    neoscroll,
     -- This Vim plugin integrates the fuzzy finder 'fzf' into Vim for fast file navigation and searching.
     "junegunn/fzf",
     fzf_vim,
@@ -289,6 +294,12 @@ require("lazy").setup({
     spectre,
     -- This Vim plugin, "madox2/vim-ai", is used to integrate AI features into the Vim text editor.
     vim_ai,
+    -- This Vim plugin ("norcalli/nvim-colorizer.lua") provides functionality for colorizing text in Neovim.
+    nvim_colorizer,
+    -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
+    which_key,
+    -- "morhetz/gruvbox" is a retro groove color scheme for Vim.
+    gruvbox,
 })
 
 -- ============================================================================
