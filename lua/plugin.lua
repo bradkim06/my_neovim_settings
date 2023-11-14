@@ -34,6 +34,8 @@ require("lazy").setup({
     "tpope/vim-sensible",
     -- "sindrets/diffview.nvim" is a Neovim plugin for easily reviewing and navigating diffs.
     "sindrets/diffview.nvim",
+    -- This Vim plugin is used to enhance the search functionality in Neovim.
+    require("plugins.wilder_nvim"),
     -- "vim-scripts/DoxygenToolkit.vim": a Vim plugin for generating Doxygen documentation quickly and easily.
     require("plugins.doxygentoolkit_vim"),
     -- "kdheepak/lazygit.nvim" is a Vim plugin for integrating the lazygit terminal UI within the Neovim environment.
