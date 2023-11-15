@@ -12,23 +12,35 @@ wilder_nvim.config = function()
     wilder.set_option('pipeline', {
         wilder.branch(
             wilder.python_file_finder_pipeline({
-                -- to use ripgrep : {'rg', '--files'}
-                -- to use fd      : {'fd', '-tf'}
-                file_command = { 'fd', '-tf' },
-                -- to use fd      : {'fd', '-td'}
+                file_command = function(ctx, arg)
+                    if string.find(arg, '.') ~= nil then
+                        return { 'fd', '-tf', '-H' }
+                    else
+                        return { 'fd', '-tf' }
+                    end
+                end,
                 dir_command = { 'fd', '-td' },
                 -- use {'cpsm_filter'} for performance, requires cpsm vim plugin
                 -- found at https://github.com/nixprime/cpsm
                 filters = { 'fuzzy_filter', 'difflib_sorter' },
             }),
-            wilder.cmdline_pipeline({
-                -- sets the language to use, 'vim' and 'python' are supported
-                language = 'python',
-                -- 0 turns off fuzzy matching
-                -- 1 turns on fuzzy matching
-                -- 2 partial fuzzy matching (match does not have to begin with the same first letter)
-                fuzzy = 1,
+
+            wilder.substitute_pipeline({
+                pipeline = wilder.python_search_pipeline({
+                    skip_cmdtype_check = 1,
+                    pattern = wilder.python_fuzzy_pattern({
+                        start_at_boundary = 0,
+                    }),
+                }),
             }),
+            wilder.cmdline_pipeline({
+                fuzzy = 2,
+                fuzzy_filter = wilder.lua_fzy_filter(),
+            }),
+            {
+                wilder.check(function(ctx, x) return x == '' end),
+                wilder.history()
+            },
             wilder.python_search_pipeline({
                 -- can be set to wilder#python_fuzzy_delimiter_pattern() for stricter fuzzy matching
                 pattern = wilder.python_fuzzy_pattern(),
@@ -36,8 +48,9 @@ wilder_nvim.config = function()
                 sorter = wilder.python_difflib_sorter(),
                 -- can be set to 're2' for performance, requires pyre2 to be installed
                 -- see :h wilder#python_search() for more details
-                engine = 're',
+                engine = 're2',
             })
+
         ),
     })
 
@@ -71,17 +84,10 @@ wilder_nvim.config = function()
         })
     )
 
-    local wildmenu_renderer = wilder.wildmenu_renderer({
-        highlighter = highlighters,
-        separator = ' · ',
-        left = { ' ', wilder.wildmenu_spinner(), ' ' },
-        right = { ' ', wilder.wildmenu_index() },
-    })
-
     wilder.set_option('renderer', wilder.renderer_mux({
         [':'] = popupmenu_renderer,
         ['/'] = popupmenu_renderer,
-        substitute = wildmenu_renderer,
+        substitute = popupmenu_renderer,
     }))
 end
 
