@@ -32,5 +32,7 @@
   "Lua.runtime.version": "LuaJIT",
   "Lua.workspace.library": [
     "/opt/homebrew/Cellar/neovim/0.9.4/share/nvim/runtime"
-  ]
+  ],
+
+  "pairs.enableBackspace": true
 }

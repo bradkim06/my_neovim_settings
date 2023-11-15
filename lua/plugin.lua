@@ -66,6 +66,4 @@ require("lazy").setup({
     require("plugins.toggle_term"),
     -- This Vim plugin, Sniprun, allows for the execution of code snippets directly from the text editor.
     require("plugins.sniprun"),
-    -- This Vim plugin automatically pairs brackets and quotes as you type in Neovim.
-    require("plugins.nvim_autopair"),
 })

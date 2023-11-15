@@ -9,6 +9,7 @@ coc_nvim.config = function()
     -- coc.nvim
     -- ============================================================================
     local keyset = vim.keymap.set
+    vim.g.coc_global_extensions = { 'coc-pairs' }
     -- Some servers have issues with backup files, see #649
     vim.opt.backup = false
     vim.opt.writebackup = false
