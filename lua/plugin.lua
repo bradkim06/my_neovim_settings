@@ -56,8 +56,6 @@ require("lazy").setup({
     require("plugins.vim_ai"),
     -- This Vim plugin ("norcalli/nvim-colorizer.lua") provides functionality for colorizing text in Neovim.
     require("plugins.nvim_colorizer_lua"),
-    -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
-    require("plugins.which_key_nvim"),
     -- This Vim plugin "ethanholz/nvim-lastplace" helps to reopen files at the last edited position.
     require("plugins.nvim_lastplace"),
     -- This plugin 'nvim-telescope/telescope.nvim' is a highly extensible fuzzy finder over lists for Neovim.
@@ -66,4 +64,6 @@ require("lazy").setup({
     require("plugins.toggle_term"),
     -- This Vim plugin, Sniprun, allows for the execution of code snippets directly from the text editor.
     require("plugins.sniprun"),
+    -- "folke/which-key.nvim" is a Vim plugin that provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
+    require("plugins.which_key_nvim"),
 })

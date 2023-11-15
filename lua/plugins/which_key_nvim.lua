@@ -3,7 +3,7 @@ local which_key_nvim = {
     event = "VeryLazy",
 }
 
-which_key_nvim.config = function()
+which_key_nvim.init = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
 
