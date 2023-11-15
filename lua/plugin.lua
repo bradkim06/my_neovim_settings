@@ -26,6 +26,8 @@ require("lazy").setup({
     -- colorscheme list
     "catppuccin/nvim",
     colorscheme,
+    -- showing changes in the sign column.
+    require("plugins.gitsigns_nvim"),
     -- for realtime markdown previewing
     "iamcco/markdown-preview.nvim",
     -- provides functionalities to easily delete, change and add surroundings in pairs.
