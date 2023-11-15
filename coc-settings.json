@@ -4,10 +4,10 @@
   "suggest.autoTrigger": "always",
 
   // options for {Scope: `language-overridable}
-  "[markdown][lua][c]": {
-    "coc.preferences.formatOnSave": true,
-    "coc.preferences.formatOnType": true
-  },
+  // "[markdown][lua][c]": {
+  //   "coc.preferences.formatOnSave": true,
+  //   "coc.preferences.formatOnType": true
+  // },
 
   "prettier.printWidth": 80,
   "prettier.enable": true,
