@@ -34,14 +34,6 @@ require("lazy").setup({
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
 	require("plugins.gitsigns_nvim"),
-	-- for realtime markdown previewing
-	"iamcco/markdown-preview.nvim",
-	-- provides functionalities to easily delete, change and add surroundings in pairs.
-	"tpope/vim-surround",
-	-- provides sensible default settings for Vim.
-	"tpope/vim-sensible",
-	-- Neofor easily reviewing and navigating diffs.
-	"sindrets/diffview.nvim",
 	-- used to enhance the search functionality in Neovim.
 	require("plugins.wilder_nvim"),
 	-- generating Doxygen documentation quickly and easily.
@@ -74,4 +66,13 @@ require("lazy").setup({
 	require("plugins.sniprun"),
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
 	require("plugins.which_key_nvim"),
+
+	-- for realtime markdown previewing
+	"iamcco/markdown-preview.nvim",
+	-- provides functionalities to easily delete, change and add surroundings in pairs.
+	"tpope/vim-surround",
+	-- provides sensible default settings for Vim.
+	"tpope/vim-sensible",
+	-- Neofor easily reviewing and navigating diffs.
+	"sindrets/diffview.nvim",
 })
