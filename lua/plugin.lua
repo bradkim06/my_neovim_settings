@@ -78,12 +78,12 @@ require("lazy").setup({
 	require("plugins.mason_lspconfig_nvim"),
 	-- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
 	require("plugins.coc_nvim"),
+	-- This Vim plugin is used to facilitate surround operations (like adding, changing, or deleting parentheses, brackets, quotes, etc.) in Neovim.
+	require("plugins.nvim_surround"),
 
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
-	-- provides functionalities to easily delete, change and add surroundings in pairs.
-	"tpope/vim-surround",
 	-- provides sensible default settings for Vim.
 	"tpope/vim-sensible",
 	-- Neofor easily reviewing and navigating diffs.
