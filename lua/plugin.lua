@@ -26,7 +26,6 @@ require("lazy").setup({
 	-- colorscheme list
 	"catppuccin/nvim",
 	colorscheme,
-	require("plugins.dressing_nvim"),
 	-- automatically format your code according to a specified style guide.
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
