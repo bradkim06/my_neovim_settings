@@ -82,8 +82,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
-	-- for realtime markdown previewing
-	"iamcco/markdown-preview.nvim",
 	-- provides functionalities to easily delete, change and add surroundings in pairs.
 	"tpope/vim-surround",
 	-- provides sensible default settings for Vim.
