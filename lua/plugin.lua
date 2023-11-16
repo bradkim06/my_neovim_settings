@@ -23,9 +23,23 @@ local colorscheme = {
 }
 
 require("lazy").setup({
-	-- colorscheme list
+	-- ===============================================================================================
+	-- Colorscheme List
+	-- ===============================================================================================
 	"catppuccin/nvim",
 	colorscheme,
+
+	-- ===============================================================================================
+	-- Need Configuration Code plugin
+	-- ===============================================================================================
+	-- configure and manage the Language Server Protocol (LSP) for Neovim.
+	require("plugins.nvim_lspconfig"),
+	-- integrates the Mason templating system into the Neovim text editor.
+	require("plugins.mason_nvim"),
+	-- integrates Mason's Language Server Protocol configurations into Neovim.
+	require("plugins.mason_lspconfig_nvim"),
+	-- A completion plugin for neovim coded in Lua.
+	require("plugins.nvim_cmp"),
 	-- search and insert emojis using Telescope in Vim.
 	require("plugins.telescope_emoji"),
 	-- simple and nice looking neovim messages.
@@ -44,8 +58,6 @@ require("lazy").setup({
 	require("plugins.lazygit_nvim"),
 	-- tab-like buffer line with close icons and buffer sorting.
 	require("plugins.bufferline_nvim"),
-	-- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
-	require("plugins.coc_nvim"),
 	-- syntax highlighting, indentation, and code navigation in Neovim using the Tree-sitter parser.
 	require("plugins.nvim_treesitter"),
 	-- adding, deleting, and navigating through comments in Neovim.
@@ -69,6 +81,9 @@ require("lazy").setup({
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
 	require("plugins.which_key_nvim"),
 
+	-- ===============================================================================================
+	-- Only plugin install
+	-- ===============================================================================================
 	-- for realtime markdown previewing
 	"iamcco/markdown-preview.nvim",
 	-- provides functionalities to easily delete, change and add surroundings in pairs.
@@ -77,4 +92,10 @@ require("lazy").setup({
 	"tpope/vim-sensible",
 	-- Neofor easily reviewing and navigating diffs.
 	"sindrets/diffview.nvim",
+
+	-- ===============================================================================================
+	-- Unused Now
+	-- ===============================================================================================
+	-- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
+	-- require("plugins.coc_nvim"),
 })
