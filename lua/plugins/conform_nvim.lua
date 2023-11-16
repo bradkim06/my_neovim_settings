@@ -1,5 +1,6 @@
 local conform_nvim = {
 	"stevearc/conform.nvim",
+	event = "BufWrite",
 	opts = {},
 }
 
