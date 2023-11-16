@@ -26,6 +26,9 @@ require("lazy").setup({
 	-- colorscheme list
 	"catppuccin/nvim",
 	colorscheme,
+	-- simple and nice looking neovim messages.
+	require("plugins.noice_nvim"),
+	-- display gui notifications.
 	require("plugins.nvim_notify"),
 	-- automatically format your code according to a specified style guide.
 	require("plugins.conform_nvim"),
