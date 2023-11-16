@@ -38,7 +38,21 @@ nvim_lspconfig.config = function()
 		end,
 	})
 	lspconfig.cmake.setup({})
-	lspconfig.clangd.setup({})
+	lspconfig.clangd.setup({
+		cmd = {
+			"clangd",
+			"--background-index",
+			"--pretty",
+			"--clang-tidy",
+			"--header-insertion=iwyu",
+			"--completion-style=detailed",
+			"--function-arg-placeholders",
+			"--fallback-style=llvm",
+			"--header-insertion=never",
+		},
+
+		-- filetypes = { "c", "cc", "cpp", "hpp", "c++", "objc", "objcpp" },
+	})
 
 	-- Global mappings.
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions

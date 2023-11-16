@@ -10,6 +10,8 @@ local nvim_cmp = {
 	"hrsh7th/vim-vsnip",
 }
 
+-- configure example https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
+
 nvim_cmp.config = function()
 	-- Set up nvim-cmp.
 	local cmp = require("cmp")

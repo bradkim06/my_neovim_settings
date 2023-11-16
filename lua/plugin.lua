@@ -32,14 +32,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Need Configuration Code plugin
 	-- ===============================================================================================
-	-- configure and manage the Language Server Protocol (LSP) for Neovim.
-	require("plugins.nvim_lspconfig"),
-	-- integrates the Mason templating system into the Neovim text editor.
-	require("plugins.mason_nvim"),
-	-- integrates Mason's Language Server Protocol configurations into Neovim.
-	require("plugins.mason_lspconfig_nvim"),
-	-- A completion plugin for neovim coded in Lua.
-	require("plugins.nvim_cmp"),
 	-- search and insert emojis using Telescope in Vim.
 	require("plugins.telescope_emoji"),
 	-- simple and nice looking neovim messages.
@@ -80,6 +72,12 @@ require("lazy").setup({
 	require("plugins.sniprun"),
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
 	require("plugins.which_key_nvim"),
+	-- integrates the Mason templating system into the Neovim text editor.
+	require("plugins.mason_nvim"),
+	-- integrates Mason's Language Server Protocol configurations into Neovim.
+	require("plugins.mason_lspconfig_nvim"),
+	-- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
+	require("plugins.coc_nvim"),
 
 	-- ===============================================================================================
 	-- Only plugin install
@@ -96,6 +94,8 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Unused Now
 	-- ===============================================================================================
-	-- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
-	-- require("plugins.coc_nvim"),
+	-- -- configure and manage the Language Server Protocol (LSP) for Neovim.
+	-- require("plugins.nvim_lspconfig"),
+	-- A completion plugin for neovim coded in Lua.
+	-- require("plugins.nvim_cmp"),
 })

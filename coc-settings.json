@@ -15,9 +15,11 @@
     "cpp": ["c", "cpp"]
   },
 
-  "diagnostic.checkCurrentLine": true,
+  // "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextAlign": "after",
   // "diagnostic.messageTarget": "echo",
-  // "diagnostic.virtualText": true,
+  "diagnostic.virtualText": true,
 
   "clangd.path": "/usr/bin/clangd",
   "clangd.checkUpdates": true,
