@@ -1,13 +1,13 @@
 local lualine_nvim = {
 	"nvim-lualine/lualine.nvim",
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	event = "VeryLazy",
 }
 
 lualine_nvim.opts = {
 	options = {
 		icons_enabled = true,
-		theme = "gruvbox",
+		theme = "tokyonight",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
