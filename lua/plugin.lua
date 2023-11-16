@@ -26,6 +26,8 @@ require("lazy").setup({
 	-- colorscheme list
 	"catppuccin/nvim",
 	colorscheme,
+	-- search and insert emojis using Telescope in Vim.
+	require("plugins.telescope_emoji"),
 	-- simple and nice looking neovim messages.
 	require("plugins.noice_nvim"),
 	-- display gui notifications.
