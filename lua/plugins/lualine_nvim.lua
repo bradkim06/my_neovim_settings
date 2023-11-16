@@ -1,6 +1,7 @@
 local lualine_nvim = {
 	"nvim-lualine/lualine.nvim",
 	dependencies = "nvim-tree/nvim-web-devicons",
+	event = "VeryLazy",
 }
 
 lualine_nvim.opts = {

@@ -1,8 +1,9 @@
 local vim_ai = {
 	"madox2/vim-ai",
+	cmd = { "AI", "AIEdit", "AIChat" },
 }
 
-vim_ai.config = function()
+vim_ai.init = function()
 	vim.g.vim_ai_complete = {
 		engine = "chat",
 		options = {

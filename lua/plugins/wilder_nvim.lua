@@ -1,6 +1,6 @@
 local wilder_nvim = {
 	"gelguy/wilder.nvim",
-	lazy = false,
+	event = "VeryLazy",
 	dependencies = { "romgrk/fzy-lua-native", "nixprime/cpsm", "sharkdp/fd", "junegunn/fzf.vim", "junegunn/fzf" },
 }
 

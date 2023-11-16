@@ -4,6 +4,7 @@ local nvim_treesitter = {
 	dependencies = {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	},
+	event = "VeryLazy",
 }
 
 nvim_treesitter.config = function()

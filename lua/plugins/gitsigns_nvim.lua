@@ -1,5 +1,6 @@
 local gitsigns_nvim = {
 	"lewis6991/gitsigns.nvim",
+	event = "BufRead",
 }
 
 gitsigns_nvim.config = function()

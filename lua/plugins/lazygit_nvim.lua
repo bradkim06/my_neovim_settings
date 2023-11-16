@@ -1,5 +1,6 @@
 local lazygit_nvim = {
 	"kdheepak/lazygit.nvim",
+	cmd = "Lazygit",
 }
 
 lazygit_nvim.keys = {

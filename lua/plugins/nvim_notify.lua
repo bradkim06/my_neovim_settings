@@ -1,5 +1,6 @@
 local nvim_notify = {
 	"rcarriga/nvim-notify",
+	event = "VeryLazy",
 }
 
 -- This function configures notifications for the Neovim editor, specifically for the Conquer of Completion (coc.nvim) plugin which provides Language Server Protocol (LSP) support, including status updates and diagnostic messages.

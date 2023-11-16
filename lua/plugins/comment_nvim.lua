@@ -1,5 +1,6 @@
 local comment_nvim = {
 	"numToStr/Comment.nvim",
+	event = "BufRead",
 }
 
 comment_nvim.config = function()

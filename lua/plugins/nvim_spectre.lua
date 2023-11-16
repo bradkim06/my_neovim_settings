@@ -1,5 +1,6 @@
 local nvim_spectre = {
 	"nvim-pack/nvim-spectre",
+	event = "VeryLazy",
 	dependencies = "nvim-lua/plenary.nvim",
 }
 

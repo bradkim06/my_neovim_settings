@@ -2,6 +2,7 @@ local toggle_term = {
 	"akinsho/toggleterm.nvim",
 	version = "*",
 	config = true,
+	cmd = "ToggleTerm",
 }
 
 toggle_term.keys = {
