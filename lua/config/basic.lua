@@ -36,6 +36,16 @@ if set.colorcolumn then
 	set.colorcolumn = "80"
 end
 
+vim.api.nvim_exec(
+	[[
+  augroup JSONC
+    autocmd!
+    autocmd BufRead,BufNewFile *.json set filetype=jsonc
+  augroup END
+]],
+	false
+)
+
 vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 
 -- ============================================================================
