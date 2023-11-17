@@ -98,4 +98,4 @@ coc_nvim.config = function()
 	vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = "?" })
 end
 
-return coc_nvim
+return {}

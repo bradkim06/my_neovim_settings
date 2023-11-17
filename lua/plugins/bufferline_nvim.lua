@@ -2,7 +2,7 @@ local bufferline_nvim = {
 	"akinsho/bufferline.nvim",
 	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
-	event = "VeryLazy",
+	event = "BufRead",
 }
 
 bufferline_nvim.config = function()
