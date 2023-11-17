@@ -1,10 +1,11 @@
 local mason_lspconfig_nvim = {
 	"williamboman/mason-lspconfig.nvim",
-	event = "VeryLazy",
+	dependencies = "williamboman/mason.nvim",
 }
 
 mason_lspconfig_nvim.config = function()
-	require("mason-lspconfig").setup()
+	require("mason").setup()
+	require("mason-lspconfig").setup({})
 end
 
 return mason_lspconfig_nvim

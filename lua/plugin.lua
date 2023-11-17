@@ -69,11 +69,10 @@ require("lazy").setup({
 	require("plugins.mason_lspconfig_nvim"),
 	-- This Vim plugin is used to facilitate surround operations (like adding, changing, or deleting parentheses, brackets, quotes, etc.) in Neovim.
 	require("plugins.nvim_surround"),
-	-- configure and manage the Language Server Protocol (LSP) for Neovim.
-	require("plugins.nvim_lspconfig"),
 	-- A completion plugin for neovim coded in Lua.
 	require("plugins.nvim_cmp"),
 	require("plugins.nvim_autopairs"),
+	require("plugins.navigator_lua"),
 
 	-- ===============================================================================================
 	-- Only plugin install
@@ -88,4 +87,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- -- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
 	-- require("plugins.coc_nvim"),
+	-- -- configure and manage the Language Server Protocol (LSP) for Neovim.
+	-- require("plugins.nvim_lspconfig"),
 })
