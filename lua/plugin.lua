@@ -27,16 +27,12 @@ require("lazy").setup({
 	require("plugins.telescope_emoji"),
 	-- simple and nice looking neovim messages.
 	require("plugins.noice_nvim"),
-	-- display gui notifications.
-	require("plugins.nvim_notify"),
 	-- automatically format your code according to a specified style guide.
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
 	require("plugins.gitsigns_nvim"),
 	-- used to enhance the search functionality in Neovim.
 	require("plugins.wilder_nvim"),
-	-- generating Doxygen documentation quickly and easily.
-	require("plugins.doxygentoolkit_vim"),
 	-- integrating the lazygit terminal UI within the Neovim environment.
 	require("plugins.lazygit_nvim"),
 	-- tab-like buffer line with close icons and buffer sorting.
@@ -71,9 +67,12 @@ require("lazy").setup({
 	require("plugins.nvim_surround"),
 	-- A completion plugin for neovim coded in Lua.
 	require("plugins.nvim_cmp"),
+	-- automatically pairs brackets, quotes, and other characters in Neovim.
 	require("plugins.nvim_autopairs"),
+	-- provides enhanced navigation features for Neovim 0.5+.
 	require("plugins.navigator_lua"),
-
+	-- generating documentation comments in your code.
+	require("plugins.neogen"),
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
@@ -89,4 +88,8 @@ require("lazy").setup({
 	-- require("plugins.coc_nvim"),
 	-- -- configure and manage the Language Server Protocol (LSP) for Neovim.
 	-- require("plugins.nvim_lspconfig"),
+	-- -- display gui notifications.
+	-- require("plugins.nvim_notify"),
+	-- -- generating Doxygen documentation quickly and easily.
+	-- require("plugins.doxygentoolkit_vim"),
 })
