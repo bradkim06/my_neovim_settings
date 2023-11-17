@@ -19,7 +19,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	"catppuccin/nvim",
 	require("plugins.colorscheme"),
-
 	-- ===============================================================================================
 	-- Need Configuration Code plugin
 	-- ===============================================================================================
@@ -73,6 +72,8 @@ require("lazy").setup({
 	require("plugins.navigator_lua"),
 	-- generating documentation comments in your code.
 	require("plugins.neogen"),
+	-- for linting code within Neovim.
+	require("plugins.nvim_lint"),
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
