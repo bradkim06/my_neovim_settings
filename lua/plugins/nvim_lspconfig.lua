@@ -7,7 +7,7 @@ nvim_lspconfig.config = function()
 	-- Add additional capabilities supported by nvim-cmp
 	local lspconfig = require("lspconfig")
 	local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-	local servers = { "clangd", "lua_ls", "cmake" }
+	local servers = { "clangd", "lua_ls", "cmake", "jsonls" }
 
 	for _, lsp in pairs(servers) do
 		if lsp == "clangd" then
