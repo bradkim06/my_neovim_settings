@@ -20,6 +20,19 @@ which_key_nvim.init = function()
 			vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = "#EEEEEE" })
 		end,
 	})
+
+	local wk = require("which-key")
+	wk.register({
+		c = {
+			name = "ChatGPT",
+			g = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+			e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+			t = { "<cmd>ChatGPTRun translate_korea<CR>", "Translate Korea", mode = { "n", "v" } },
+			c = { "<cmd>ChatGPTRun commit<CR>", "write commit message", mode = { "n", "v" } },
+		},
+	}, {
+		prefix = "<leader>",
+	})
 end
 
 which_key_nvim.opts = {

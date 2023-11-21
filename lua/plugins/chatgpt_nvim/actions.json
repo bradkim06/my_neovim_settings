@@ -1,0 +1,34 @@
+{
+  "translate_korea": {
+    "type": "chat",
+    "opts": {
+      "template": "Translate this into {{lang}}:\n\n{{input}}",
+      "strategy": "replace",
+      "params": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.3
+      }
+    },
+    "args": {
+      "lang": {
+        "type": "string",
+        "optional": "true",
+        "default": "korean"
+      }
+    }
+  },
+
+  "commit": {
+    "type": "chat",
+    "opts": {
+      "title": " Commit Message",
+      "template": "write the commit message. following git diff.\n\ngit diff:\n\"\"\"\n{{input}}\nuse Linux kernel format, excluding the 'signed-off-by' field.",
+      "strategy": "display",
+      "params": {
+        "model": "gpt-4",
+        "temperature": 0.7,
+        "stop": ["<C-c>"]
+      }
+    }
+  }
+}
