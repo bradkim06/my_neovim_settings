@@ -17,7 +17,7 @@ local noice_nvim = {
 noice_nvim.config = function()
 	require("noice").setup({
 		lsp = {
-			hover = { enabled = false },
+			hover = { enabled = true },
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 			override = {
 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,

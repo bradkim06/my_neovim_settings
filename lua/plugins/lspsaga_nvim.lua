@@ -51,7 +51,7 @@ local lspsaga_nvim = {
 		vim.keymap.set("n", "[d", "<CMD>Lspsaga diagnostic_jump_prev<CR>", opts)
 		vim.keymap.set("n", "]d", "<CMD>Lspsaga diagnostic_jump_next<CR>", opts)
 		vim.keymap.set({ "n", "t" }, "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts)
-		vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
+		-- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 		vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts)
 		vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
 		vim.keymap.set("n", "gG", "<cmd>Lspsaga show_workspace_diagnostics<cr>", opts)
