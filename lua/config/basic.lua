@@ -72,6 +72,8 @@ vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true })
 -- ============================================================================
 -- Useful Mappings
 -- ============================================================================
+-- select all
+vim.keymap.set("n", "<C-a>", "ggVG", {})
 -- Set keymap for '%%' command
 vim.keymap.set("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { expr = true })
 
