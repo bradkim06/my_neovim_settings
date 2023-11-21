@@ -80,6 +80,10 @@ require("lazy").setup({
 	require("plugins.nvim_lspconfig"),
 	require("plugins.lspsaga_nvim"),
 	{
+		"hinell/lsp-timeout.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
 		"jackMort/ChatGPT.nvim",
 		event = "VeryLazy",
 		config = function()
