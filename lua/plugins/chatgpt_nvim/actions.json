@@ -22,7 +22,7 @@
     "type": "chat",
     "opts": {
       "title": " Commit Message",
-      "template": "write the commit message. following git diff.\n\ngit diff:\n\"\"\"\n{{input}}\nuse Linux kernel format, excluding the 'signed-off-by' field.",
+      "template": "write the commit message. following git diff.\n\ngit diff:\n\"\"\"\n{{input}}\nuse Linux kernel commit format, excluding the 'signed-off-by' field.",
       "strategy": "display",
       "params": {
         "model": "gpt-4",
