@@ -58,8 +58,6 @@ require("lazy").setup({
 	require("plugins.nvim_lastplace"),
 	-- fuzzy finder over lists for Neovim.
 	require("plugins.telescope_nvim"),
-	-- toggle the terminal window on and off.
-	require("plugins.toggle_term"),
 	-- execution of code snippets directly from the text editor.
 	require("plugins.sniprun"),
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
@@ -78,6 +76,9 @@ require("lazy").setup({
 	require("plugins.neogen"),
 	-- for linting code within Neovim.
 	require("plugins.nvim_lint"),
+	-- configure and manage the Language Server Protocol (LSP) for Neovim.
+	require("plugins.nvim_lspconfig"),
+	require("plugins.lspsaga_nvim"),
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
@@ -91,10 +92,16 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- -- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
 	-- require("plugins.coc_nvim"),
-	-- -- configure and manage the Language Server Protocol (LSP) for Neovim.
-	-- require("plugins.nvim_lspconfig"),
+
 	-- -- display gui notifications.
 	-- require("plugins.nvim_notify"),
+
 	-- -- generating Doxygen documentation quickly and easily.
 	-- require("plugins.doxygentoolkit_vim"),
+
+	-- -- provides enhanced navigation features for Neovim 0.5+.
+	-- require("plugins.navigator_lua"),
+
+	-- -- toggle the terminal window on and off.
+	-- require("plugins.toggle_term"),
 })
