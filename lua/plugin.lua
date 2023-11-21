@@ -76,8 +76,6 @@ require("lazy").setup({
 	require("plugins.nvim_cmp"),
 	-- automatically pairs brackets, quotes, and other characters in Neovim.
 	require("plugins.nvim_autopairs"),
-	-- provides enhanced navigation features for Neovim 0.5+.
-	require("plugins.navigator_lua"),
 	-- generating documentation comments in your code.
 	require("plugins.neogen"),
 	-- for linting code within Neovim.
