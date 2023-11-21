@@ -52,8 +52,6 @@ require("lazy").setup({
 	require("plugins.lualine_nvim"),
 	-- allows you to search and replace text across multiple files.
 	require("plugins.nvim_spectre"),
-	-- integrate AI features into the Vim text editor.
-	require("plugins.vim_ai"),
 	-- functionality for colorizing text in Neovim.
 	require("plugins.nvim_colorizer_lua"),
 	-- reopen files at the last edited position.
