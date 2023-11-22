@@ -13,7 +13,6 @@ set.incsearch = true
 -- treat all numerals as decimal, regardless of whether they are padded with zeros.
 set.nrformats = ""
 
--- set.background = "dark"
 set.wildignorecase = true
 set.hlsearch = true
 set.encoding = "utf-8"

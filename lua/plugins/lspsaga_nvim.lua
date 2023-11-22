@@ -44,16 +44,20 @@ local lspsaga_nvim = {
 			},
 		})
 
-		local opts = { noremap = true, silent = false }
+		local opts = { noremap = true }
 		vim.keymap.set("n", "gd", "<CMD>Lspsaga goto_definition<CR>", opts)
 		vim.keymap.set("n", "gp", "<CMD>Lspsaga peek_definition<CR>", opts)
 		vim.keymap.set("n", "gr", "<CMD>Lspsaga finder def+ref<CR>", opts)
-		vim.keymap.set("n", "[d", "<CMD>Lspsaga diagnostic_jump_prev<CR>", opts)
-		vim.keymap.set("n", "]d", "<CMD>Lspsaga diagnostic_jump_next<CR>", opts)
 		vim.keymap.set({ "n", "t" }, "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts)
-		-- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 		vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts)
 		vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
+
+		-- hover
+		vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
+
+		-- diagnostics
+		vim.keymap.set("n", "[d", "<CMD>Lspsaga diagnostic_jump_prev<CR>", opts)
+		vim.keymap.set("n", "]d", "<CMD>Lspsaga diagnostic_jump_next<CR>", opts)
 		vim.keymap.set("n", "gG", "<cmd>Lspsaga show_workspace_diagnostics<cr>", opts)
 	end,
 	dependencies = {

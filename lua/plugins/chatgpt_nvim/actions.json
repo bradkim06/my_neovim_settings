@@ -2,8 +2,9 @@
   "translate_korea": {
     "type": "chat",
     "opts": {
+      "title": " Translate",
       "template": "Translate this into {{lang}}:\n\n{{input}}",
-      "strategy": "replace",
+      "strategy": "display",
       "params": {
         "model": "gpt-3.5-turbo",
         "temperature": 0.3
