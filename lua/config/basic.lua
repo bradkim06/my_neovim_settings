@@ -64,44 +64,45 @@ vim.api.nvim_exec(
 
 vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 
+local opts = { noremap = true, silent = true }
 -- ============================================================================
 -- Moving around, tabs, windows and buffers --
 -- ============================================================================
 -- MYVIMRC edit
-vim.keymap.set("n", "<leader>ve", ":edit $MYVIMRC<cr>", { noremap = true })
-vim.keymap.set("n", "<leader>vl", ":edit ~/.config/nvim/lua/basic.lua<cr>", { noremap = true })
-vim.keymap.set("n", "<leader>vs", ":source $MYVIMRC<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>ve", ":edit $MYVIMRC<cr>", opts)
+vim.keymap.set("n", "<leader>vl", ":edit ~/.config/nvim/lua/basic.lua<cr>", opts)
+vim.keymap.set("n", "<leader>vs", ":source $MYVIMRC<cr>", opts)
 
 -- Close all buffer except the current
 vim.cmd('command! BufOnly silent! execute "%bd|e#|bd#"')
-vim.keymap.set("n", "<S-q>", ":BufOnly<CR>", { noremap = true })
+vim.keymap.set("n", "<S-q>", ":BufOnly<CR>", opts)
 
 -- Close current buffer
-vim.keymap.set("n", "<Leader>q", ":bd<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>q", ":bd<CR>", opts)
 
 -- Move next buffer
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true })
+vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 
 -- Move previous buffer
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true })
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
 
 -- ============================================================================
 -- Useful Mappings
 -- ============================================================================
 -- select all
-vim.keymap.set("n", "<C-a>", "ggVG", {})
--- Set keymap for '%%' command
-vim.keymap.set("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { expr = true })
+vim.keymap.set("n", "<C-a>", "ggVG", opts)
+-- -- Set keymap for '%%' command
+-- vim.keymap.set("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { expr = true })
 
--- Remap Control+p to act as the Up arrow key in command-line mode
-vim.keymap.set("c", "<C-p>", "<Up>", {})
-
--- Remap Control+n to act as the Down arrow key in command-line mode
-vim.keymap.set("c", "<C-n>", "<Down>", {})
+-- -- Remap Control+p to act as the Up arrow key in command-line mode
+-- vim.keymap.set("c", "<C-p>", "<Up>", {})
+--
+-- -- Remap Control+n to act as the Down arrow key in command-line mode
+-- vim.keymap.set("c", "<C-n>", "<Down>", {})
 
 -- Search for the Current Selection (Redux)
-vim.keymap.set("x", "*", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], {})
-vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], {})
+vim.keymap.set("x", "*", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
+vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
 
 -- This function sets the text selected in visual mode as the search pattern.
 _G.SetSearchPattern = function()
@@ -204,10 +205,10 @@ function RenameFile()
 	end
 end
 
-vim.keymap.set("n", "<leader>n", ":lua RenameFile()<cr>", {})
+vim.keymap.set("n", "<leader>n", ":lua RenameFile()<cr>", opts)
 
-vim.keymap.set("n", "<F3>", ":!west build<cr>", {})
-vim.keymap.set("n", "<F4>", ":!west flash<cr>", {})
+vim.keymap.set("n", "<F3>", ":!west build<cr>", opts)
+vim.keymap.set("n", "<F4>", ":!west flash<cr>", opts)
 
 -- Enable true color
 vim.g["NVIM_TUI_ENABLE_TRUE_COLOR"] = 1
