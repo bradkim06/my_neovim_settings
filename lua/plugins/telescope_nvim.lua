@@ -30,7 +30,6 @@ telescope_nvim.config = function()
 		end, 50)
 	end, { nargs = 1 })
 
-	-- vim.api.nvim_set_hl(0, "@lsp.type.comment.c", { link = "Comment" })
 	vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#C70039" })
 	-- vim.api.nvim_set_hl(0, "TelescopePreviewLine", { bg = "#EEEEEE" })
 
