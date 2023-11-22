@@ -8,12 +8,12 @@ local set = vim.opt
 
 set.wildmode = "full"
 set.hidden = true
-set.incsearch = true
 
 -- treat all numerals as decimal, regardless of whether they are padded with zeros.
 set.nrformats = ""
 
 set.wildignorecase = true
+set.incsearch = true
 set.hlsearch = true
 set.encoding = "utf-8"
 set.fileencodings = "utf8"
