@@ -34,6 +34,25 @@ require("lazy").setup({
 			require("telescope").load_extension("projects")
 		end,
 	},
+	{
+		"hinell/lsp-timeout.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
+		"jackMort/ChatGPT.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("chatgpt").setup({
+				api_key_cmd = "op read op://private/OpenAI/credential --no-newline",
+				actions_paths = { "~/.config/nvim/lua/plugins/chatgpt_nvim/actions.json" },
+			})
+		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 	-- ===============================================================================================
 	-- Colorscheme List
 	-- ===============================================================================================
@@ -50,8 +69,6 @@ require("lazy").setup({
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
 	require("plugins.gitsigns_nvim"),
-	-- -- used to enhance the search functionality in Neovim.
-	-- require("plugins.wilder_nvim"),
 	-- integrating the lazygit terminal UI within the Neovim environment.
 	require("plugins.lazygit_nvim"),
 	-- tab-like buffer line with close icons and buffer sorting.
@@ -90,27 +107,8 @@ require("lazy").setup({
 	require("plugins.nvim_lint"),
 	-- configure and manage the Language Server Protocol (LSP) for Neovim.
 	require("plugins.nvim_lspconfig"),
-
+	-- enhances the LSP (Language Server Protocol) experience with helpful features and visual aids.
 	require("plugins.lspsaga_nvim"),
-	{
-		"hinell/lsp-timeout.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
-	},
-	{
-		"jackMort/ChatGPT.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("chatgpt").setup({
-				api_key_cmd = "op read op://private/OpenAI/credential --no-newline",
-				actions_paths = { "~/.config/nvim/lua/plugins/chatgpt_nvim/actions.json" },
-			})
-		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-	},
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================
@@ -136,4 +134,7 @@ require("lazy").setup({
 
 	-- -- toggle the terminal window on and off.
 	-- require("plugins.toggle_term"),
+
+	-- -- used to enhance the search functionality in Neovim.
+	-- require("plugins.wilder_nvim"),
 })
