@@ -35,11 +35,14 @@ telescope_nvim.config = function()
 	-- vim.api.nvim_set_hl(0, "TelescopePreviewLine", { bg = "#EEEEEE" })
 
 	local builtin = require("telescope.builtin")
-	vim.keymap.set("n", "<leader><leader>", builtin.find_files, {})
-	vim.keymap.set("n", "<leader>ag", builtin.grep_string, {})
-	-- vim.keymap.set("n", "<leader>ag", ":Grep <C-r><C-w><cr>", {})
-	vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
-	vim.keymap.set("n", "<F1>", "<cmd>Telescope<cr>", {})
+	local opts = function(desc)
+		return { noremap = true, silent = true, desc = desc }
+	end
+	vim.keymap.set("n", "<leader><leader>", builtin.find_files, opts("find files"))
+	-- vim.keymap.set("n", "<leader>ag", builtin.grep_string, {})
+	vim.keymap.set("n", "<leader>ag", ":Grep <C-r><C-w><cr>", opts("grep current word"))
+	vim.keymap.set("n", "<leader>/", builtin.live_grep, opts("live grep"))
+	vim.keymap.set("n", "<F1>", "<cmd>Telescope<cr>", opts("Telescope"))
 end
 
 return telescope_nvim

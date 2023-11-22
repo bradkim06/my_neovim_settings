@@ -98,9 +98,11 @@ nvim_lspconfig.config = function()
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(ev)
 			-- Buffer local mappings.
-			local opts = {}
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "hover" })
-			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "signature_help" })
+			local opts = function(desc)
+				return { noremap = true, silent = true, desc = desc }
+			end
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("hover"))
+			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts("signature_help"))
 		end,
 	})
 end
