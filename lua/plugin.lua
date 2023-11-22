@@ -116,14 +116,8 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Unused Now
 	-- ===============================================================================================
-	-- -- generating Doxygen documentation quickly and easily.
-	-- require("plugins.doxygentoolkit_vim"),
-
 	-- -- provides enhanced navigation features for Neovim 0.5+.
 	-- require("plugins.navigator_lua"),
-
-	-- -- toggle the terminal window on and off.
-	-- require("plugins.toggle_term"),
 
 	-- -- used to enhance the search functionality in Neovim.
 	-- require("plugins.wilder_nvim"),
