@@ -116,9 +116,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Unused Now
 	-- ===============================================================================================
-	-- -- powerful, extensible Vim/Neofor autocompletion, linting, and language server protocol support.
-	-- require("plugins.coc_nvim"),
-
 	-- -- display gui notifications.
 	-- require("plugins.nvim_notify"),
 
