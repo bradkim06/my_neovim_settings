@@ -2,7 +2,6 @@ local nvim_treesitter = {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	dependencies = {
-		"JoosepAlviste/nvim-ts-context-commentstring",
 		"p00f/nvim-ts-rainbow",
 	},
 	event = "VeryLazy",
