@@ -91,10 +91,6 @@ require("lazy").setup({
 	require("plugins.sniprun"),
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
 	require("plugins.which_key_nvim"),
-	-- integrates the Mason templating system into the Neovim text editor.
-	require("plugins.mason_nvim"),
-	-- integrates Mason's Language Server Protocol configurations into Neovim.
-	require("plugins.mason_lspconfig_nvim"),
 	-- This Vim plugin is used to facilitate surround operations (like adding, changing, or deleting parentheses, brackets, quotes, etc.) in Neovim.
 	require("plugins.nvim_surround"),
 	-- A completion plugin for neovim coded in Lua.

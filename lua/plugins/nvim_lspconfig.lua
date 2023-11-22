@@ -1,15 +1,34 @@
 local nvim_lspconfig = {
 	"neovim/nvim-lspconfig",
-	dependencies = { "folke/neodev.nvim", "hrsh7th/nvim-cmp" },
+	dependencies = {
+		"folke/neodev.nvim",
+		"hrsh7th/nvim-cmp",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+	},
+}
+
+local server_list = {
+	"neocmake",
+	"clangd",
+	"jsonls",
+	"lua_ls",
+	"marksman",
+	"pyright",
+	"vimls",
 }
 
 nvim_lspconfig.config = function()
 	-- Add additional capabilities supported by nvim-cmp
 	local lspconfig = require("lspconfig")
 	local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-	local servers = { "clangd", "lua_ls", "cmake", "jsonls" }
 
-	for _, lsp in pairs(servers) do
+	require("mason").setup()
+	require("mason-lspconfig").setup({
+		ensure_installed = server_list,
+	})
+
+	for _, lsp in pairs(server_list) do
 		if lsp == "clangd" then
 			lspconfig[lsp].setup({
 				cmd = {
@@ -36,6 +55,22 @@ nvim_lspconfig.config = function()
 						},
 					},
 				},
+				capabilities = cmp_capabilities,
+			})
+		elseif lsp == "neocmake" then
+			lspconfig[lsp].setup({
+				cmd = { "neocmakelsp", "--stdio" },
+				filetypes = { "cmake" },
+				root_dir = function(fname)
+					return require("lspconfig").util.find_git_ancestor(fname)
+				end,
+				single_file_support = true, -- suggested
+				init_options = {
+					format = {
+						enable = true,
+					},
+				},
+				capabilities = cmp_capabilities,
 			})
 		else
 			lspconfig[lsp].setup({
