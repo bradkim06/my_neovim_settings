@@ -40,6 +40,13 @@ require("lazy").setup({
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("todo-comments").setup({})
+		end,
+	},
 	-- {
 	-- 	"chrisgrieser/nvim-early-retirement",
 	-- 	config = true,

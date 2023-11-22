@@ -8,8 +8,8 @@ local colorscheme = {
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			-- load the colorscheme here
-			vim.o.background = "dark"
-			vim.cmd("colorscheme kanagawa-wave")
+			vim.o.background = ""
+			vim.cmd.colorscheme("kanagawa-wave")
 		end,
 	},
 }

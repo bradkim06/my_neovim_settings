@@ -30,8 +30,18 @@ telescope_nvim.config = function()
 		end, 50)
 	end, { nargs = 1 })
 
-	vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#C70039" })
-	-- vim.api.nvim_set_hl(0, "TelescopePreviewLine", { bg = "#EEEEEE" })
+	local color = {
+		TelescopeMatching = {
+			fg = "#FF8080",
+		},
+		TelescopePreviewLine = {
+			bg = "#625e5a",
+			fg = "#FF8080",
+		},
+	}
+	for hl, col in pairs(color) do
+		vim.api.nvim_set_hl(0, hl, col)
+	end
 
 	local builtin = require("telescope.builtin")
 	local opts = function(desc)
