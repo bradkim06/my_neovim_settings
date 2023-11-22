@@ -29,6 +29,18 @@ local lspsaga_nvim = {
 				},
 			},
 
+			rename = {
+				in_select = true,
+				auto_save = false,
+				project_max_width = 0.5,
+				project_max_height = 0.5,
+				keys = {
+					quit = "<C-c>",
+					exec = "<CR>",
+					select = "x",
+				},
+			},
+
 			ui = {
 				border = "double",
 				-- devicon = true,

@@ -18,15 +18,32 @@ set.hlsearch = true
 set.encoding = "utf-8"
 set.fileencodings = "utf8"
 
-set.clipboard = "unnamed"
+set.clipboard = "unnamedplus"
+set.cursorline = true
+
+-- Numbers
 set.number = true
+set.ruler = false
+
+-- Indenting
+set.expandtab = true
+set.shiftwidth = 4
+set.smartindent = true
+set.tabstop = 4
+set.softtabstop = 4
+
 set.ignorecase = true
 set.smartcase = true
-set.tabstop = 4
-set.shiftwidth = 4
-set.softtabstop = 4
-set.expandtab = true
 set.mouse = "a"
+
+-- disable nvim intro
+set.shortmess:append("sI")
+
+set.signcolumn = "yes"
+set.splitbelow = true
+set.splitright = true
+set.timeoutlen = 400
+set.undofile = true
 
 -- 80 chars/line
 set.textwidth = 80

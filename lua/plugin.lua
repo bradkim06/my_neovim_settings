@@ -50,8 +50,8 @@ require("lazy").setup({
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
 	require("plugins.gitsigns_nvim"),
-	-- used to enhance the search functionality in Neovim.
-	require("plugins.wilder_nvim"),
+	-- -- used to enhance the search functionality in Neovim.
+	-- require("plugins.wilder_nvim"),
 	-- integrating the lazygit terminal UI within the Neovim environment.
 	require("plugins.lazygit_nvim"),
 	-- tab-like buffer line with close icons and buffer sorting.
@@ -90,6 +90,7 @@ require("lazy").setup({
 	require("plugins.nvim_lint"),
 	-- configure and manage the Language Server Protocol (LSP) for Neovim.
 	require("plugins.nvim_lspconfig"),
+
 	require("plugins.lspsaga_nvim"),
 	{
 		"hinell/lsp-timeout.nvim",
