@@ -18,21 +18,12 @@ require("lazy").setup({
 	-- Experimental Plugin
 	-- ===============================================================================================
 	{
-		"chrisgrieser/nvim-early-retirement",
-		config = true,
-		event = "VeryLazy",
-	},
-	{
 		"ahmedkhalf/project.nvim",
 		dependencies = "nvim-telescope/telescope.nvim",
 		config = function()
 			require("project_nvim").setup({})
 			require("telescope").load_extension("projects")
 		end,
-	},
-	{
-		"hinell/lsp-timeout.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
 	},
 	{
 		"jackMort/ChatGPT.nvim",
@@ -49,6 +40,15 @@ require("lazy").setup({
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	-- {
+	-- 	"chrisgrieser/nvim-early-retirement",
+	-- 	config = true,
+	-- 	event = "VeryLazy",
+	-- },
+	-- {
+	-- 	"hinell/lsp-timeout.nvim",
+	-- 	dependencies = { "neovim/nvim-lspconfig" },
+	-- },
 	-- ===============================================================================================
 	-- Colorscheme List
 	-- ===============================================================================================
