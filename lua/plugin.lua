@@ -116,9 +116,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Unused Now
 	-- ===============================================================================================
-	-- -- display gui notifications.
-	-- require("plugins.nvim_notify"),
-
 	-- -- generating Doxygen documentation quickly and easily.
 	-- require("plugins.doxygentoolkit_vim"),
 
