@@ -2,12 +2,13 @@
   "translate_korea": {
     "type": "chat",
     "opts": {
-      "title": " Translate",
+      "title": " Translate korean",
       "template": "Translate this into {{lang}}:\n\n{{input}}",
       "strategy": "display",
       "params": {
-        "model": "gpt-3.5-turbo",
-        "temperature": 0.3
+        "model": "gpt-4-1106-preview",
+        "temperature": 0.3,
+        "stop": ["<C-c>"]
       }
     },
     "args": {
@@ -19,15 +20,36 @@
     }
   },
 
+  "translate_english": {
+    "type": "chat",
+    "opts": {
+      "title": " Translate english",
+      "template": "Translate this into {{lang}}:\n\n{{input}}",
+      "strategy": "display",
+      "params": {
+        "model": "gpt-4-1106-preview",
+        "temperature": 0.3,
+        "stop": ["<C-c>"]
+      }
+    },
+    "args": {
+      "lang": {
+        "type": "string",
+        "optional": "true",
+        "default": "english"
+      }
+    }
+  },
+
   "commit": {
     "type": "chat",
     "opts": {
       "title": " Commit Message",
-      "template": "write the commit message. following git diff.\n\ngit diff:\n\"\"\"\n{{input}}\nuse Linux kernel commit format, excluding the 'signed-off-by' field.",
-      "strategy": "display",
+      "template": "I want you to act as a linux kernel maintainer developer. I will provide 'git diff --staged' message, and it will be your job to come up with commit message. do not write explanations. Do not write in markdown format. like this example 'platform/x86: intel_telemetry: Fix kernel doc descriptions LKP found issues with a kernel doc in the driver: core.c:116: warning: Function parameter or member 'ioss_evtconfig' not described in 'telemetry_update_events' core.c:188: warning: Function parameter or member 'ioss_evtconfig' not described in 'telemetry_get_eventconfig' It looks like it were copy'n'paste typos when these descriptions had been introduced. Fix the typos.' following 'git diff --staged' message.\n\ndiff:\n\"\"\"\n{{input}}\n",
+      "strategy": "replace",
       "params": {
-        "model": "gpt-4",
-        "temperature": 0.7,
+        "model": "gpt-4-1106-preview",
+        "temperature": 0.1,
         "stop": ["<C-c>"]
       }
     }

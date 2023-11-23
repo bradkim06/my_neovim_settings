@@ -27,7 +27,8 @@ which_key_nvim.init = function()
 			name = "ChatGPT",
 			g = { "<cmd>ChatGPT<CR>", "ChatGPT" },
 			e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
-			t = { "<cmd>ChatGPTRun translate_korea<CR>", "Translate Korea", mode = { "n", "v" } },
+			tk = { "<cmd>ChatGPTRun translate_korea<CR>", "Translate Korea", mode = { "n", "v" } },
+			te = { "<cmd>ChatGPTRun translate_english<CR>", "Translate English", mode = { "n", "v" } },
 			c = { "<cmd>ChatGPTRun commit<CR>", "write commit message", mode = { "n", "v" } },
 		},
 	}, {
