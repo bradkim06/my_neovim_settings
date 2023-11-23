@@ -6,8 +6,9 @@
       "template": "Translate this into {{lang}}:\n\n{{input}}",
       "strategy": "display",
       "params": {
-        "model": "gpt-4-1106-preview",
+        "model": "gpt-3.5-turbo",
         "temperature": 0.3,
+        "max_tokens": 2000,
         "stop": ["<C-c>"]
       }
     },
@@ -27,8 +28,9 @@
       "template": "Translate this into {{lang}}:\n\n{{input}}",
       "strategy": "display",
       "params": {
-        "model": "gpt-4-1106-preview",
+        "model": "gpt-3.5-turbo",
         "temperature": 0.3,
+        "max_tokens": 2000,
         "stop": ["<C-c>"]
       }
     },
@@ -46,10 +48,11 @@
     "opts": {
       "title": " Commit Message",
       "template": "I want you to act as a linux kernel maintainer developer. I will provide 'git diff --staged' message, and it will be your job to come up with commit message. do not write explanations. Do not write in markdown format. like this example 'platform/x86: intel_telemetry: Fix kernel doc descriptions LKP found issues with a kernel doc in the driver: core.c:116: warning: Function parameter or member 'ioss_evtconfig' not described in 'telemetry_update_events' core.c:188: warning: Function parameter or member 'ioss_evtconfig' not described in 'telemetry_get_eventconfig' It looks like it were copy'n'paste typos when these descriptions had been introduced. Fix the typos.' following 'git diff --staged' message.\n\ndiff:\n\"\"\"\n{{input}}\n",
-      "strategy": "replace",
+      "strategy": "display",
       "params": {
         "model": "gpt-4-1106-preview",
-        "temperature": 0.1,
+        "temperature": 0.3,
+        "max_tokens": 500,
         "stop": ["<C-c>"]
       }
     }

@@ -11,19 +11,19 @@ wilder_nvim.config = function()
 
 	wilder.set_option("pipeline", {
 		wilder.branch(
-			wilder.python_file_finder_pipeline({
-				file_command = function(ctx, arg)
-					if string.find(arg, ".") ~= nil then
-						return { "fd", "-tf", "-H" }
-					else
-						return { "fd", "-tf" }
-					end
-				end,
-				dir_command = { "fd", "-td" },
-				-- use {'cpsm_filter'} for performance, requires cpsm vim plugin
-				-- found at https://github.com/nixprime/cpsm
-				filters = { "fuzzy_filter", "difflib_sorter" },
-			}),
+			-- wilder.python_file_finder_pipeline({
+			-- 	file_command = function(ctx, arg)
+			-- 		if string.find(arg, ".") ~= nil then
+			-- 			return { "fd", "-tf", "-H" }
+			-- 		else
+			-- 			return { "fd", "-tf" }
+			-- 		end
+			-- 	end,
+			-- 	dir_command = { "fd", "-td" },
+			-- 	-- use {'cpsm_filter'} for performance, requires cpsm vim plugin
+			-- 	-- found at https://github.com/nixprime/cpsm
+			-- 	filters = { "fuzzy_filter", "difflib_sorter" },
+			-- }),
 
 			wilder.substitute_pipeline({
 				pipeline = wilder.python_search_pipeline({
