@@ -45,6 +45,16 @@ require("lazy").setup({
 					n = 1,
 				},
 
+				openai_edit_params = {
+					model = "gpt-4-1106-preview",
+					frequency_penalty = 0,
+					presence_penalty = 0,
+					max_tokens = 2000,
+					temperature = 0.3,
+					top_p = 1,
+					n = 1,
+				},
+
 				keymaps = {
 					new_session = "<leader>csc",
 				},
