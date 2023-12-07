@@ -21,7 +21,11 @@ require("lazy").setup({
 		"ahmedkhalf/project.nvim",
 		dependencies = "nvim-telescope/telescope.nvim",
 		config = function()
-			require("project_nvim").setup({})
+			require("project_nvim").setup({
+				-- All the patterns used to detect root dir, when **"pattern"** is in
+				-- detection_methods
+				patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "build" },
+			})
 			require("telescope").load_extension("projects")
 		end,
 	},
