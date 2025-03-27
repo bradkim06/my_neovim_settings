@@ -18,57 +18,13 @@ require("lazy").setup({
 	-- Experimental Plugin
 	-- ===============================================================================================
 	{
-		"ahmedkhalf/project.nvim",
-		dependencies = "nvim-telescope/telescope.nvim",
-		config = function()
-			require("project_nvim").setup({
-				-- All the patterns used to detect root dir, when **"pattern"** is in
-				-- detection_methods
-				patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "build" },
-			})
-			require("telescope").load_extension("projects")
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
 		end,
-	},
-	{
-		"jackMort/ChatGPT.nvim",
-		event = "VeryLazy",
-		config = function()
-			local home = vim.fn.expand("$HOME")
-
-			require("chatgpt").setup({
-				api_key_cmd = "gpg --decrypt " .. home .. "/secret.txt.gpg",
-				actions_paths = { "~/.config/nvim/lua/plugins/chatgpt_nvim/actions.json" },
-
-				openai_params = {
-					model = "gpt-4-1106-preview",
-					frequency_penalty = 0,
-					presence_penalty = 0,
-					max_tokens = 4000,
-					temperature = 0.3,
-					top_p = 1,
-					n = 1,
-				},
-
-				openai_edit_params = {
-					model = "gpt-4-1106-preview",
-					frequency_penalty = 0,
-					presence_penalty = 0,
-					max_tokens = 4000,
-					temperature = 0.3,
-					top_p = 1,
-					n = 1,
-				},
-
-				keymaps = {
-					new_session = "<leader>csc",
-				},
-			})
-		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
+		ft = { "markdown" },
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -94,10 +50,6 @@ require("lazy").setup({
 	-- ===============================================================================================
 	-- Need Configuration Code plugin
 	-- ===============================================================================================
-	-- search and insert emojis using Telescope in Vim.
-	require("plugins.telescope_emoji"),
-	-- simple and nice looking neovim messages.
-	require("plugins.noice_nvim"),
 	-- automatically format your code according to a specified style guide.
 	require("plugins.conform_nvim"),
 	-- showing changes in the sign column.
@@ -112,14 +64,18 @@ require("lazy").setup({
 	require("plugins.comment_nvim"),
 	-- A Neovim status line plugin written in Lua for better performance and customization.
 	require("plugins.lualine_nvim"),
-	-- allows you to search and replace text across multiple files.
-	require("plugins.nvim_spectre"),
+
+	-- -- allows you to search and replace text across multiple files.
+	-- require("plugins.nvim_spectre"),
+
 	-- functionality for colorizing text in Neovim.
 	require("plugins.nvim_colorizer_lua"),
 	-- reopen files at the last edited position.
 	require("plugins.nvim_lastplace"),
+
 	-- fuzzy finder over lists for Neovim.
 	require("plugins.telescope_nvim"),
+
 	-- execution of code snippets directly from the text editor.
 	require("plugins.sniprun"),
 	-- provides a pop-up menu for keybindings to enhance workflow efficiency in Vim.
@@ -134,10 +90,14 @@ require("lazy").setup({
 	require("plugins.neogen"),
 	-- for linting code within Neovim.
 	require("plugins.nvim_lint"),
+
 	-- configure and manage the Language Server Protocol (LSP) for Neovim.
 	require("plugins.nvim_lspconfig"),
+
 	-- enhances the LSP (Language Server Protocol) experience with helpful features and visual aids.
 	require("plugins.lspsaga_nvim"),
+
+	-- require("plugins.compiler_nvim"),
 	-- ===============================================================================================
 	-- Only plugin install
 	-- ===============================================================================================

@@ -42,9 +42,9 @@ gitsigns_nvim.config = function()
 			row = 0,
 			col = 1,
 		},
-		yadm = {
-			enable = false,
-		},
+		-- yadm = {
+		-- 	enable = false,
+		-- },
 
 		on_attach = function(bufnr)
 			local gs = package.loaded.gitsigns

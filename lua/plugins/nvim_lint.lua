@@ -2,7 +2,7 @@ return {
 	"mfussenegger/nvim-lint",
 	config = function()
 		require("lint").linters_by_ft = {
-			c = { "cpplint" },
+			c = { "clangtidy" },
 			cmake = { "cmakelint" },
 			markdown = { "markdownlint" },
 		}

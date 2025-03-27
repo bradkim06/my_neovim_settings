@@ -54,6 +54,8 @@ local lspsaga_nvim = {
 				-- kind = nil,
 				-- imp_sign = "󰳛 ",
 			},
+
+			ft = { "c", "cpp", "lua" },
 		})
 
 		local opts = { noremap = true }

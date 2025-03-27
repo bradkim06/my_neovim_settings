@@ -40,7 +40,7 @@ nvim_lspconfig.config = function()
 					"--fallback-style=llvm",
 					"--header-insertion=never",
 				},
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+				filetypes = { "c", "cpp", "cxx", "cc" },
 				root_dir = lspconfig.util.root_pattern(".clangd"),
 				single_file_support = true,
 				capabilities = cmp_capabilities,
@@ -80,7 +80,7 @@ nvim_lspconfig.config = function()
 	end
 
 	vim.diagnostic.config({
-		virtual_text = true,
+		virtual_text = false,
 		severity_sort = true,
 		underline = false,
 		float = {
