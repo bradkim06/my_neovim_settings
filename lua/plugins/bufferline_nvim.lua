@@ -1,12 +1,25 @@
+-----------------------------------------------------------
+-- bufferline.nvim 플러그인 설정 (lazy.nvim 관리)
+-----------------------------------------------------------
 local bufferline_nvim = {
-	"akinsho/bufferline.nvim",
-	version = "*",
-	dependencies = "nvim-tree/nvim-web-devicons",
-	event = "BufRead",
+	"akinsho/bufferline.nvim", -- 버퍼(탭) 라인을 관리하여, 열린 버퍼를 시각적으로 표시
+	version = "*", -- 최신 안정화 버전 사용
+	dependencies = "nvim-tree/nvim-web-devicons", -- 파일 아이콘을 제공하는 플러그인 (버퍼에 아이콘 표시)
+	event = "BufRead", -- 버퍼를 읽을 때 플러그인을 로드하여 시작 시점 최적화
 }
 
+-----------------------------------------------------------
+-- 플러그인 설정 함수
+-----------------------------------------------------------
 bufferline_nvim.config = function()
-	require("bufferline").setup({})
+	-- bufferline의 기본 설정 적용
+	require("bufferline").setup({
+		-- 추가 설정 옵션이 필요한 경우 여기에 삽입합니다.
+		-- 예: options = { separator_style = "slant", ... }
+	})
 end
 
+-----------------------------------------------------------
+-- 플러그인 반환
+-----------------------------------------------------------
 return bufferline_nvim

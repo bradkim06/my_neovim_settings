@@ -1,12 +1,51 @@
-local nvim_surround = {
+-----------------------------------------------------------
+-- nvim-surround : 다양한 괄호/인용부호로 텍스트를 감싸거나 조정하기
+-----------------------------------------------------------
+local M = {
 	"kylechui/nvim-surround",
-	version = "*", -- Use for stability; omit to use `main` branch for the latest features
-	event = "BufRead",
-	config = function()
-		require("nvim-surround").setup({
-			-- Configuration here, or leave empty to use defaults
-		})
-	end,
+	version = "*", -- 버전: 안정성을 위해 "*" 사용 (최신은 main branch)
+	event = "VeryLazy", -- 파일을 읽을 때 로드 (상황에 맞게 조정 가능)
 }
 
-return nvim_surround
+-----------------------------------------------------------
+-- 플러그인 설정 함수
+-----------------------------------------------------------
+function M.config()
+	require("nvim-surround").setup({
+		-----------------------------------------------------------
+		-- 여기에서 사용자가 원하는 설정을 입력합니다.
+		-- 예시:
+		-- keymaps = {
+		--   insert = "<C-s>",        -- (i)모드에서 <C-s>로 감싸기 등
+		--   normal = "ys",          -- (n)모드에서 "ys{motion}{char}"로 감싸기
+		--   visual = "S",           -- (v)모드에서 "S{char}"로 감싸기
+		--   delete = "ds",          -- 괄호/인용부호 삭제
+		--   change = "cs",          -- 괄호/인용부호 변경
+		-- },
+		-----------------------------------------------------------
+	})
+end
+
+-----------------------------------------------------------
+-- nvim-surround 개선/활용 아이디어
+-----------------------------------------------------------
+-- 1) Keymap 커스터마이징:
+--    - nvim-surround의 기본 키는 vim-surround와 유사한 "ys", "ds", "cs" 등이지만,
+--      insert 모드에서도 <C-g>s 등을 사용할 수 있게 해둔 사례가 있음.
+--
+-- 2) 추가 텍스트 객체:
+--    - nvim-surround는 단순 괄호 외에도 HTML/XML 태그, Markdown 링크 등 커스텀이 가능
+--      ex) { "left_tag", "right_tag" } 형태로 추가 서라운드 지정
+--
+-- 3) Treesitter 연동:
+--    - 일부 경우, Treesitter 정보를 사용해 더 정확하게 감싸거나 삭제할 수 있음
+--
+-- 4) Lazy 로드 시점(event) 변경:
+--    - BufRead 대신 "InsertEnter" 또는 "VeryLazy" 등에 로드할 수도 있음
+--    - 사용 빈도, startup 성능 고려해 결정
+--
+-- 5) 기타:
+--    - vim-surround를 사용하다 넘어온 경우, 단축키 호환을 위해
+--      "surround.nvim"도 고려. (하지만 nvim-surround는 기능이 더 풍부)
+
+return M

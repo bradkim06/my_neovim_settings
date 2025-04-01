@@ -1,14 +1,31 @@
-return {
-	"danymat/neogen",
-	dependencies = "nvim-treesitter/nvim-treesitter",
+-----------------------------------------------------------
+-- Neogen 플러그인 설정 (lazy.nvim 관리)
+-----------------------------------------------------------
+local neogen = {
+	"danymat/neogen", -- Neogen: 코드 주석 및 문서 자동 생성을 위한 플러그인
+	dependencies = "nvim-treesitter/nvim-treesitter", -- 문서 생성에 도움을 주는 Treesitter 의존성
 	config = function()
+		-- Neogen 플러그인 기본 설정
 		require("neogen").setup({
+			-------------------------------------------------------
+			-- 언어별 문서화 설정
+			-------------------------------------------------------
 			languages = {
+				-- C++의 Doxygen 스타일 문서화를 위해 Neogen의 C++ 설정을 사용
 				["cpp.doxygen"] = require("neogen.configurations.cpp"),
 			},
+			-------------------------------------------------------
+			-- 사용할 스니펫 엔진 설정
+			-------------------------------------------------------
+			-- LuaSnip을 스니펫 엔진으로 사용하여 문서 템플릿을 관리
 			snippet_engine = "luasnip",
 		})
 	end,
-	-- Uncomment next line if you want to follow only stable versions
+	-- 안정된 버전을 사용하려면 version 값을 "*"로 설정합니다.
 	version = "*",
 }
+
+-----------------------------------------------------------
+-- 플러그인 반환
+-----------------------------------------------------------
+return neogen

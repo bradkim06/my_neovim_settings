@@ -3,6 +3,7 @@
         "missing-fields"
     ],
     "diagnostics.globals": [
-        "actions"
+        "actions",
+        "vim"
     ]
 }
