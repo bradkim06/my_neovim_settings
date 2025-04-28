@@ -210,3 +210,173 @@ vim.keymap.set("n", "<F4>", ":!west flash<cr>", opts) -- 플래시 실행
 
 -- [6.4] Neovim TUI에서 True Color 사용 활성화
 vim.g.NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+-- chatgpt_integration.lua
+-- Neovim → ChatGPT macOS 앱 연동 스크립트 (기능별 정리)
+
+------------------------------
+-- 1) 공통 Helper 함수
+------------------------------
+-- 클립보드에 저장된 텍스트를 ChatGPT 앱에 붙여넣기하고 전송
+local function chatgpt_activate_and_send()
+	-- ChatGPT 앱 활성화
+	os.execute([[osascript -e 'tell application "ChatGPT" to activate']])
+	-- 붙여넣기 (⌘+V)
+	os.execute([[osascript -e 'tell application "System Events" to keystroke "v" using {command down}']])
+	-- 엔터 또는 Shift+엔터 전송 (필요 시 변경)
+	os.execute([[osascript -e 'tell application "System Events" to key code 36 using {shift down}']])
+end
+
+-- 클립보드에 텍스트 복사
+local function copy_to_clipboard(text)
+	vim.fn.setreg("+", text)
+end
+
+------------------------------
+-- 2) 비주얼 모드 선택 영역 전송
+------------------------------
+-- 선택 영역 문자열 추출
+local function get_visual_selection()
+	local s_pos = vim.fn.getpos("'<")
+	local e_pos = vim.fn.getpos("'>")
+	local s_line, s_col = s_pos[2], s_pos[3]
+	local e_line, e_col = e_pos[2], e_pos[3]
+	local lines = vim.fn.getline(s_line, e_line)
+	lines[1] = string.sub(lines[1], s_col)
+	lines[#lines] = string.sub(lines[#lines], 1, e_col)
+	return table.concat(lines, "\n")
+end
+
+-- 선택된 코드 전송 함수 (전역)
+_G.send_selection_to_chatgpt = function()
+	local sel = get_visual_selection()
+	local wrapped = string.format("<user__selection>\n%s\n</user__selection>", sel)
+	copy_to_clipboard(wrapped)
+	chatgpt_activate_and_send()
+end
+
+-- 매핑: 비주얼 모드에서 <Leader>cs
+vim.api.nvim_set_keymap(
+	"v",
+	"<Leader>cs",
+	":<C-u>lua send_selection_to_chatgpt()<CR>",
+	{ noremap = true, silent = true }
+)
+
+------------------------------
+-- 3) 버퍼 전체 내용 전송
+------------------------------
+_G.send_buffer_to_chatgpt = function()
+	local lines = vim.fn.getline(1, "$")
+	local text = table.concat(lines, "\n")
+	local wrapped = string.format("<user__selection>\n%s\n</user__selection>", text)
+	copy_to_clipboard(wrapped)
+	chatgpt_activate_and_send()
+end
+
+-- 매핑: 노멀 모드에서 <Leader>cs
+vim.api.nvim_set_keymap("n", "<Leader>cs", ":<C-u>lua send_buffer_to_chatgpt()<CR>", { noremap = true, silent = true })
+
+------------------------------
+-- 4) glob 패턴으로 파일 일괄 전송
+------------------------------
+_G.send_files_to_chatgpt = function()
+	vim.ui.input({ prompt = "Send files matching pattern:", default = "*.py" }, function(pattern)
+		if not pattern or pattern == "" then
+			print("⚠️ No pattern provided.")
+			return
+		end
+		local cwd = vim.fn.getcwd()
+		local files = vim.fn.globpath(cwd, pattern, false, true)
+		if vim.tbl_isempty(files) then
+			print("🔍 No files match pattern: " .. pattern)
+			return
+		end
+		local chunks = {}
+		for _, path in ipairs(files) do
+			local name = vim.fn.fnamemodify(path, ":t")
+			local lines = vim.fn.readfile(path)
+			table.insert(chunks, "### " .. name)
+			table.insert(chunks, table.concat(lines, "\n"))
+		end
+		local body = table.concat(chunks, "\n\n")
+		local wrapped = string.format("<user__selection>\n%s\n</user__selection>", body)
+		copy_to_clipboard(wrapped)
+		chatgpt_activate_and_send()
+	end)
+end
+
+-- 매핑: 노멀 모드에서 <Leader>cf
+vim.api.nvim_set_keymap("n", "<Leader>cf", ":<C-u>lua send_files_to_chatgpt()<CR>", { noremap = true, silent = true })
+
+-- 2) Telescope 멀티 셀렉션용 함수
+local has_telescope, telescope = pcall(require, "telescope")
+if not has_telescope then
+	vim.notify("Please install nvim-telescope/telescope.nvim to use csf with Telescope", vim.log.levels.ERROR)
+	return
+end
+
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+
+_G.send_selected_files_to_chatgpt = function()
+	pickers
+		.new({}, {
+			prompt_title = "Select files to send → ChatGPT",
+			finder = finders.new_oneshot_job({ "fd", "--type", "f", "--hidden", "--exclude", ".git" }, {}),
+			previewer = conf.file_previewer({}),
+			sorter = conf.file_sorter({}),
+			attach_mappings = function(prompt_bufnr, map)
+				-- <Tab> 토글, <CR> 선택 완료
+				map("i", "<Tab>", actions.toggle_selection + actions.move_selection_worse)
+				map("n", "<Tab>", actions.toggle_selection + actions.move_selection_worse)
+
+				local function send_and_close()
+					-- 1) 현재 Telescope picker 객체 가져오기
+					local picker = action_state.get_current_picker(prompt_bufnr)
+					-- 2) 토글된(멀티) 셀렉션 목록 가져오기
+					local selections = picker:get_multi_selection()
+
+					if #selections == 0 then
+						vim.notify("⚠️ No files selected.", vim.log.levels.WARN)
+					else
+						local chunks = {}
+						for _, entry in ipairs(selections) do
+							-- entry.value 까지 포함해서 파일 경로 확보
+							local path = entry.path or entry.filename or entry.value
+							-- 경로가 문자열이고 실제로 읽을 수 있는지 확인
+							if type(path) ~= "string" or vim.fn.filereadable(path) == 0 then
+								vim.notify("⚠️ Cannot read file: " .. vim.inspect(path), vim.log.levels.WARN)
+							else
+								local name = vim.fn.fnamemodify(path, ":t")
+								local lines = vim.fn.readfile(path)
+								table.insert(chunks, "### " .. name)
+								table.insert(chunks, table.concat(lines, "\n"))
+							end
+						end
+						local body = table.concat(chunks, "\n\n")
+						local wrapped = string.format("<user__selection>\n%s\n</user__selection>", body)
+						copy_to_clipboard(wrapped)
+						chatgpt_activate_and_send()
+					end
+					actions.close(prompt_bufnr)
+				end
+
+				map("i", "<CR>", send_and_close)
+				map("n", "<CR>", send_and_close)
+				return true
+			end,
+		})
+		:find()
+end
+
+-- 3) 매핑 (Normal 모드)
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>csf",
+	":lua send_selected_files_to_chatgpt()<CR>",
+	{ noremap = true, silent = true }
+)
