@@ -19,7 +19,6 @@ function M.config()
 	-- nvim-treesitter.configs : Treesitter 관련 설정
 	-----------------------------------------------------------
 
-
 	require("nvim-treesitter.configs").setup({
 		---------------------------------------------------------
 		-- 어떤 파서(언어)를 설치할지
@@ -83,10 +82,43 @@ function M.config()
 				enable = true,
 				lookahead = true, -- 다음 텍스트 객체를 미리 인식
 				keymaps = {
-					["af"] = "@function.outer", -- 함수 범위(전체)
-					["if"] = "@function.inner", -- 함수 내부
+					-- 함수
+					["af"] = "@function.outer",
+					["if"] = "@function.inner",
+					-- 클래스
 					["ac"] = "@class.outer",
 					["ic"] = "@class.inner",
+					-- 매개변수
+					["ap"] = "@parameter.outer",
+					["ip"] = "@parameter.inner",
+					-- 호출
+					["aa"] = "@call.outer",
+					["ia"] = "@call.inner",
+					-- 조건문
+					["ad"] = "@conditional.outer",
+					["id"] = "@conditional.inner",
+					-- 반복문
+					["al"] = "@loop.outer",
+					["il"] = "@loop.inner",
+					-- 일반 문장
+					["as"] = "@statement.outer",
+					["is"] = "@statement.inner",
+					-- 블록(중괄호, 들여쓰기)
+					["ab"] = "@block.outer",
+					["ib"] = "@block.inner",
+				},
+			},
+
+			move = {
+				enable = true,
+				set_jumps = true,
+				goto_next_start = {
+					["]f"] = "@function.outer",
+					["]c"] = "@class.outer",
+				},
+				goto_previous_start = {
+					["[f"] = "@function.outer",
+					["[c"] = "@class.outer",
 				},
 			},
 		},
@@ -111,7 +143,6 @@ function M.config()
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		callback = link_comment,
 	})
-
 end
 
 -----------------------------------------------------------
