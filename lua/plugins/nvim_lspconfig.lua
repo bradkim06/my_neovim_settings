@@ -20,7 +20,7 @@ local server_list = {
 	"jsonls", -- JSON용 LSP
 	"lua_ls", -- Lua용 LSP
 	"marksman", -- Markdown용 LSP
-	"pyright", -- Python용 LSP
+	"ruff", -- Python용 LSP
 	"vimls", -- VimL용 LSP
 }
 
@@ -75,20 +75,20 @@ nvim_lspconfig.config = function()
 				},
 				capabilities = cmp_capabilities,
 			})
-		elseif lsp == "pyright" then
-			-- Python용 pyright LSP 설정
-			lspconfig[lsp].setup({
-				capabilities = cmp_capabilities,
-				settings = {
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "workspace",
-							useLibraryCodeForTypes = true,
-						},
-					},
-				},
-			})
+		-- elseif lsp == "pyright" then
+		-- 	-- Python용 pyright LSP 설정
+		-- 	lspconfig[lsp].setup({
+		-- 		capabilities = cmp_capabilities,
+		-- 		settings = {
+		-- 			python = {
+		-- 				analysis = {
+		-- 					autoSearchPaths = true,
+		-- 					diagnosticMode = "workspace",
+		-- 					useLibraryCodeForTypes = true,
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	})
 		else
 			lspconfig[lsp].setup({
 				capabilities = cmp_capabilities,
