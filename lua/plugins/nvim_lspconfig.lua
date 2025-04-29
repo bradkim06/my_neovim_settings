@@ -20,7 +20,7 @@ local server_list = {
 	"jsonls", -- JSON용 LSP
 	"lua_ls", -- Lua용 LSP
 	"marksman", -- Markdown용 LSP
-	"ruff", -- Python용 LSP
+	"pyright",
 	"vimls", -- VimL용 LSP
 }
 
@@ -75,21 +75,20 @@ nvim_lspconfig.config = function()
 				},
 				capabilities = cmp_capabilities,
 			})
-		-- elseif lsp == "pyright" then
-		-- 	-- Python용 pyright LSP 설정
-		-- 	lspconfig[lsp].setup({
-		-- 		capabilities = cmp_capabilities,
-		-- 		settings = {
-		-- 			python = {
-		-- 				analysis = {
-		-- 					autoSearchPaths = true,
-		-- 					diagnosticMode = "workspace",
-		-- 					useLibraryCodeForTypes = true,
-		-- 				},
-		-- 			},
-		-- 		},
-		-- 	})
-		else
+		elseif lsp == "pyright" then
+			-- Python용 pyright LSP 설정
+			lspconfig[lsp].setup({
+				capabilities = cmp_capabilities,
+				settings = {
+					python = {
+						analysis = {
+							autoSearchPaths = true,
+							diagnosticMode = "workspace",
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			})
 			lspconfig[lsp].setup({
 				capabilities = cmp_capabilities,
 			})
@@ -99,15 +98,15 @@ nvim_lspconfig.config = function()
 	-------------------------------------------------------
 	-- 진단(Diagnostic) 설정
 	-------------------------------------------------------
-	-- vim.diagnostic.config({
-	-- 	virtual_text = false, -- 가상 텍스트를 사용하지 않음 (팝업으로 대체)
-	-- 	severity_sort = true, -- 진단을 심각도 순으로 정렬
-	-- 	underline = false, -- 밑줄 표시 비활성화
-	-- 	float = {
-	-- 		border = "rounded", -- 둥근 테두리 사용
-	-- 		source = "always", -- 항상 진단 소스 표시
-	-- 	},
-	-- })
+	vim.diagnostic.config({
+		virtual_text = false, -- 가상 텍스트를 사용하지 않음 (팝업으로 대체)
+		severity_sort = true, -- 진단을 심각도 순으로 정렬
+		underline = false, -- 밑줄 표시 비활성화
+		float = {
+			border = "rounded", -- 둥근 테두리 사용
+			source = "always", -- 항상 진단 소스 표시
+		},
+	})
 
 	-------------------------------------------------------
 	-- LSP 핸들러 커스터마이징: Hover 및 Signature Help 둥근 테두리 적용

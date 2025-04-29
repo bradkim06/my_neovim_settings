@@ -25,7 +25,7 @@ conform_nvim.config = function()
 			-- Lua 파일에 stylua 사용
 			lua = { "stylua" },
 			-- Python 파일: ruff_format이 사용 가능한 경우 사용, 아니면 isort와 black 조합 사용
-			python = { "ruff" },
+			python = { "ruff_format" },
 			-- Markdown 파일에 mdformat 사용
 			markdown = { "mdformat" },
 			-- JSON 및 JSONC 파일에 prettierd 사용

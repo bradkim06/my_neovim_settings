@@ -35,6 +35,8 @@ gitsigns_nvim.config = function()
 					gitsigns.nav_hunk("prev")
 				end
 			end)
+
+			map("n", "<leader>h", gitsigns.preview_hunk, { desc = "Preview Git Hunk" }) -- 설명 추가
 		end,
 	})
 end
