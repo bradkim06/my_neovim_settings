@@ -134,6 +134,19 @@ function M.config()
 
 	-- <F1>             : Telescope 명령어 목록/메인 메뉴
 	vim.keymap.set("n", "<F1>", "<cmd>Telescope<cr>", map_opts("Telescope: open command palette"))
+
+	-- (B) [신규] lspsaga를 대체하는 LSP 관련 매핑
+	-- Telescope를 사용하는 매핑
+	vim.keymap.set("n", "gd", builtin.lsp_definitions, map_opts("LSP: Peek Definition"))
+	vim.keymap.set("n", "gr", builtin.lsp_references, map_opts("LSP: Find References"))
+	-- vim.keymap.set({ "n", "v" }, "<leader>ca", builtin.lsp_code_actions, map_opts("LSP: Code Action"))
+	vim.keymap.set("n", "gG", builtin.diagnostics, map_opts("LSP: Workspace Diagnostics"))
+
+	-- Neovim 네이티브 LSP 기능을 사용하는 매핑
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, map_opts("LSP: Rename Symbol"))
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, map_opts("LSP: Hover Documentation"))
+	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, map_opts("LSP: Previous Diagnostic"))
+	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, map_opts("LSP: Next Diagnostic"))
 end
 
 return M

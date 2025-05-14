@@ -61,12 +61,14 @@ require("lazy").setup({
 	require("plugins.nvim_autopairs"), -- 자동 괄호, 따옴표 매칭
 	require("plugins.neogen"), -- 문서 주석 자동 생성
 	require("plugins.nvim_lint"), -- 코드 린팅 플러그인
+	require("plugins.toggleterm"),
 
 	-------------------------------------------------------------------------
 	-- LSP (Language Server Protocol) 관련 플러그인
 	-------------------------------------------------------------------------
 	require("plugins.nvim_lspconfig"), -- LSP 서버 설정 및 관리
-	require("plugins.lspsaga_nvim"), -- LSP 확장 기능 및 UI 개선
+	-- require("plugins.trouble_nvim"),
+	-- require("plugins.lspsaga_nvim"), -- LSP 확장 기능 및 UI 개선
 
 	-------------------------------------------------------------------------
 	-- 플러그인 설치만 필요한 항목

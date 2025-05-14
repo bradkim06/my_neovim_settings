@@ -1,51 +1,59 @@
 -----------------------------------------------------------
--- nvim-lspconfig 플러그인 설정 (lazy.nvim 관리)
+-- nvim-lspconfig (lazy.nvim)
 -----------------------------------------------------------
 local nvim_lspconfig = {
-	"neovim/nvim-lspconfig", -- Neovim 내장 LSP 설정 플러그인
+	"neovim/nvim-lspconfig",
 	event = "VeryLazy",
 	dependencies = {
-		"hrsh7th/nvim-cmp", -- 자동 완성 기능
-		"williamboman/mason.nvim", -- LSP 서버 설치 및 관리
-		"williamboman/mason-lspconfig.nvim", -- mason과 lspconfig 연동
+		"hrsh7th/nvim-cmp",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 	},
 }
 
 -----------------------------------------------------------
 -- LSP 서버 목록
 -----------------------------------------------------------
-local server_list = {
-	"neocmake", -- CMake용 LSP
-	"clangd", -- C/C++용 LSP
-	"jsonls", -- JSON용 LSP
-	"lua_ls", -- Lua용 LSP
-	"marksman", -- Markdown용 LSP
+local servers = {
+	"neocmake",
+	"clangd",
+	"jsonls",
+	"lua_ls",
+	"marksman",
 	"pyright",
-	"vimls", -- VimL용 LSP
+	"vimls",
+	"arduino_language_server",
 }
 
 -----------------------------------------------------------
--- nvim-lspconfig 설정 함수
+-- 플러그인 설정
 -----------------------------------------------------------
 nvim_lspconfig.config = function()
-	-- LSP 설정 모듈과 nvim-cmp 통합을 위한 추가 capabilities 설정
+	----------------------------------------------------------------
+	-- 기본
+	----------------------------------------------------------------
 	local lspconfig = require("lspconfig")
-	local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-	-------------------------------------------------------
-	-- Mason 및 Mason-lspconfig 설정: 지정된 서버 자동 설치
-	-------------------------------------------------------
+	vim.filetype.add({ extension = { ino = "arduino" } })
+
+	----------------------------------------------------------------
+	-- mason
+	----------------------------------------------------------------
 	require("mason").setup()
+
+	-- ✱ 자동-setup 끄고, ensure_installed 만 사용
 	require("mason-lspconfig").setup({
-		ensure_installed = server_list,
+		ensure_installed = servers,
+		handlers = {}, -- ← 핵심: mason이 setup() 안 함
 	})
 
-	-------------------------------------------------------
-	-- 각 LSP 서버별 개별 설정
-	-------------------------------------------------------
-	for _, lsp in pairs(server_list) do
-		if lsp == "clangd" then
-			lspconfig[lsp].setup({
+	----------------------------------------------------------------
+	-- 한 군데에서만 setup
+	----------------------------------------------------------------
+	for _, server in ipairs(servers) do
+		if server == "clangd" then
+			lspconfig.clangd.setup({
 				cmd = {
 					"clangd",
 					"--background-index",
@@ -58,27 +66,20 @@ nvim_lspconfig.config = function()
 				filetypes = { "c", "cpp", "cxx", "cc" },
 				root_dir = lspconfig.util.root_pattern(".clangd"),
 				single_file_support = true,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 			})
-		elseif lsp == "neocmake" then
-			lspconfig[lsp].setup({
+		elseif server == "neocmake" then
+			lspconfig.neocmake.setup({
 				cmd = { "neocmakelsp", "--stdio" },
 				filetypes = { "cmake" },
-				root_dir = function(fname)
-					return require("lspconfig").util.find_git_ancestor(fname)
-				end,
-				single_file_support = true, -- 권장 설정
-				init_options = {
-					format = {
-						enable = true,
-					},
-				},
-				capabilities = cmp_capabilities,
+				root_dir = lspconfig.util.find_git_ancestor,
+				single_file_support = true,
+				init_options = { format = { enable = true } },
+				capabilities = capabilities,
 			})
-		elseif lsp == "pyright" then
-			-- Python용 pyright LSP 설정
-			lspconfig[lsp].setup({
-				capabilities = cmp_capabilities,
+		elseif server == "pyright" then
+			lspconfig.pyright.setup({
+				capabilities = capabilities,
 				settings = {
 					python = {
 						analysis = {
@@ -89,34 +90,52 @@ nvim_lspconfig.config = function()
 					},
 				},
 			})
-			lspconfig[lsp].setup({
-				capabilities = cmp_capabilities,
+		elseif server == "arduino_language_server" then
+			lspconfig.arduino_language_server.setup({
+				cmd = {
+					"arduino-language-server",
+					"-cli",
+					"arduino-cli",
+					"-clangd",
+					"clangd",
+					"-cli-config",
+					vim.fn.expand("~/.config/arduino-cli/arduino-cli.yaml"),
+					"-fqbn",
+					"esp32:esp32:esp32c3",
+				},
+				filetypes = { "arduino" },
+				root_dir = function(fname)
+					local util = lspconfig.util
+					return util.root_pattern(".git")(fname) or util.path.dirname(fname)
+				end,
+				single_file_support = true,
+				capabilities = capabilities,
+			})
+		else
+			-- 나머지 서버는 기본 옵션만
+			lspconfig[server].setup({
+				capabilities = capabilities,
 			})
 		end
 	end
 
-	-------------------------------------------------------
-	-- 진단(Diagnostic) 설정
-	-------------------------------------------------------
+	----------------------------------------------------------------
+	-- 진단 UI
+	----------------------------------------------------------------
 	vim.diagnostic.config({
-		virtual_text = false, -- 가상 텍스트를 사용하지 않음 (팝업으로 대체)
-		severity_sort = true, -- 진단을 심각도 순으로 정렬
-		underline = false, -- 밑줄 표시 비활성화
-		float = {
-			border = "rounded", -- 둥근 테두리 사용
-			source = "always", -- 항상 진단 소스 표시
-		},
+		virtual_text = false,
+		severity_sort = true,
+		underline = false,
+		float = { border = "rounded", source = "always" },
 	})
 
-	-------------------------------------------------------
-	-- LSP 핸들러 커스터마이징: Hover 및 Signature Help 둥근 테두리 적용
-	-------------------------------------------------------
+	----------------------------------------------------------------
+	-- hover / signatureHelp UI
+	----------------------------------------------------------------
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+
 	vim.lsp.handlers["textDocument/signatureHelp"] =
 		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 end
 
------------------------------------------------------------
--- 플러그인 반환
------------------------------------------------------------
 return nvim_lspconfig
