@@ -14,10 +14,18 @@ conform_nvim.config = function()
 		-----------------------------------------------------------
 		-- 1. 파일 타입별 포매터 설정
 		-----------------------------------------------------------
+		formatters = {
+			clang_format = {
+				-- .clang-format 파일이 없을 때 사용할 커맨드 라인 인수
+				args = { "--style={IndentWidth: 4, UseTab: Never}" },
+			},
+		},
+
 		formatters_by_ft = {
 			-- C 및 C++ 파일에 clang_format 사용
 			c = { "clang_format" },
 			cpp = { "clang_format" },
+			arduino = { "clang_format" },
 			-- CMake 파일에 cmake_format 사용
 			cmake = { "cmake_format" },
 			-- 쉘 스크립트 파일에 shfmt 사용 (sh filetype)
@@ -53,6 +61,18 @@ conform_nvim.config = function()
 		log_level = vim.log.levels.ERROR,
 		notify_on_error = true,
 	})
+
+	vim.api.nvim_create_user_command("Format", function(args)
+		local range = nil
+		if args.count ~= -1 then
+			local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+			range = {
+				start = { args.line1, 0 },
+				["end"] = { args.line2, end_line:len() },
+			}
+		end
+		require("conform").format({ async = true, lsp_format = "fallback", range = range })
+	end, { range = true })
 end
 
 -----------------------------------------------------------

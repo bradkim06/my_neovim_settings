@@ -22,6 +22,7 @@ local server_list = {
 	"marksman", -- Markdown용 LSP
 	"pyright",
 	"vimls", -- VimL용 LSP
+	"arduino_language_server", -- ★ 추가
 }
 
 -----------------------------------------------------------
@@ -31,6 +32,7 @@ nvim_lspconfig.config = function()
 	-- LSP 설정 모듈과 nvim-cmp 통합을 위한 추가 capabilities 설정
 	local lspconfig = require("lspconfig")
 	local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+	vim.filetype.add({ extension = { ino = "arduino" } })
 
 	-------------------------------------------------------
 	-- Mason 및 Mason-lspconfig 설정: 지정된 서버 자동 설치
@@ -90,6 +92,29 @@ nvim_lspconfig.config = function()
 				},
 			})
 			lspconfig[lsp].setup({
+				capabilities = cmp_capabilities,
+			})
+		elseif lsp == "arduino_language_server" then
+			-- arduino-cli 와 clangd 가 PATH 에 없다면 절대경로로 적어 주세요.
+			lspconfig[lsp].setup({
+				cmd = {
+					"arduino-language-server",
+					"-cli",
+					"arduino-cli",
+					"-clangd",
+					"clangd",
+					"-cli-config",
+					vim.fn.expand("~/.config/arduino-cli/arduino-cli.yaml"),
+					"-fqbn",
+					"esp32:esp32:esp32c3", -- ★ 보드 식별자
+				},
+				filetypes = { "arduino" },
+				root_dir = function(fname) -- 스케치 최상단 찾기
+					local util = require("lspconfig").util
+					return util.root_pattern(".git")(fname) -- 깃 저장소 기준
+						or util.path.dirname(fname) -- 없으면 현재 폴더
+				end,
+				single_file_support = true,
 				capabilities = cmp_capabilities,
 			})
 		end

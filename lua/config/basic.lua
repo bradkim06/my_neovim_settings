@@ -275,39 +275,7 @@ _G.send_buffer_to_chatgpt = function()
 end
 
 -- 매핑: 노멀 모드에서 <Leader>cs
-vim.api.nvim_set_keymap("n", "<Leader>cs", ":<C-u>lua send_buffer_to_chatgpt()<CR>", { noremap = true, silent = true })
-
-------------------------------
--- 4) glob 패턴으로 파일 일괄 전송
-------------------------------
-_G.send_files_to_chatgpt = function()
-	vim.ui.input({ prompt = "Send files matching pattern:", default = "*.py" }, function(pattern)
-		if not pattern or pattern == "" then
-			print("⚠️ No pattern provided.")
-			return
-		end
-		local cwd = vim.fn.getcwd()
-		local files = vim.fn.globpath(cwd, pattern, false, true)
-		if vim.tbl_isempty(files) then
-			print("🔍 No files match pattern: " .. pattern)
-			return
-		end
-		local chunks = {}
-		for _, path in ipairs(files) do
-			local name = vim.fn.fnamemodify(path, ":t")
-			local lines = vim.fn.readfile(path)
-			table.insert(chunks, "### " .. name)
-			table.insert(chunks, table.concat(lines, "\n"))
-		end
-		local body = table.concat(chunks, "\n\n")
-		local wrapped = string.format("<user__selection>\n%s\n</user__selection>", body)
-		copy_to_clipboard(wrapped)
-		chatgpt_activate_and_send()
-	end)
-end
-
--- 매핑: 노멀 모드에서 <Leader>cf
-vim.api.nvim_set_keymap("n", "<Leader>cf", ":<C-u>lua send_files_to_chatgpt()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Leader>cf", ":<C-u>lua send_buffer_to_chatgpt()<CR>", { noremap = true, silent = true })
 
 -- 2) Telescope 멀티 셀렉션용 함수
 local has_telescope, telescope = pcall(require, "telescope")
