@@ -37,10 +37,13 @@ nvim_lspconfig.config = function()
 	-- arduino 파일타입 추가
 	vim.filetype.add({ extension = { ino = "arduino" } })
 
-	-- 루트 디렉토리 헬퍼 (vim.fs 기반)
+	-- bufnr 기반 루트 탐색 헬퍼
 	local function root_with(markers, fallback_to_cwd)
-		return function(fname)
-			local found = vim.fs.find(markers, { upward = true, path = fname })[1]
+		return function(bufnr)
+			-- bufnr -> 파일 경로
+			local name = vim.api.nvim_buf_get_name(bufnr)
+			local start = (name ~= "" and name) or vim.loop.cwd()
+			local found = vim.fs.find(markers, { upward = true, path = start })[1]
 			if found then
 				return vim.fs.dirname(found)
 			end
@@ -53,25 +56,21 @@ nvim_lspconfig.config = function()
 	----------------------------------------------------------------
 	require("mason").setup()
 
-	-- mason-lspconfig: ensure_installed만 사용 (자동 enable은 직접)
 	require("mason-lspconfig").setup({
 		ensure_installed = servers,
 	})
 
 	----------------------------------------------------------------
-	-- 한 군데에서만 enable (신규 API)
-	-- 1) vim.lsp.config('<name>', { ...옵션... })
-	-- 2) vim.lsp.enable('<name>')
+	-- 신규 API: vim.lsp.config + vim.lsp.enable
 	----------------------------------------------------------------
 	local function enable_with(name, opts)
 		opts = opts or {}
-		-- 공통 capabilities 주입
 		opts.capabilities = vim.tbl_deep_extend("force", { capabilities = capabilities }, opts or {})
 		vim.lsp.config(name, opts)
 		vim.lsp.enable(name)
 	end
 
-	-- clangd: 커스텀 옵션
+	-- clangd
 	enable_with("clangd", {
 		cmd = {
 			"clangd",
@@ -83,7 +82,6 @@ nvim_lspconfig.config = function()
 			"--header-insertion=never",
 		},
 		filetypes = { "c", "cpp", "cxx", "cc" },
-		-- .clangd 또는 .git 기준으로 루트 탐색
 		root_dir = root_with({ ".clangd", ".git" }, true),
 		single_file_support = true,
 	})
@@ -128,7 +126,7 @@ nvim_lspconfig.config = function()
 		single_file_support = true,
 	})
 
-	-- 나머지 서버는 공통 옵션만
+	-- 나머지 서버: 공통 옵션
 	local custom = {
 		clangd = true,
 		neocmake = true,
@@ -137,7 +135,7 @@ nvim_lspconfig.config = function()
 	}
 	for _, server in ipairs(servers) do
 		if not custom[server] then
-			enable_with(server, {}) -- capabilities만 주입
+			enable_with(server, {})
 		end
 	end
 
