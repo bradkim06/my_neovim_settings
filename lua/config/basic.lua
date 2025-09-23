@@ -72,7 +72,20 @@ end
 -- 3. Python 인터프리터 설정
 -----------------------------------------------------------
 -- Neovim에서 사용할 Python3 인터프리터 경로 지정
-vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
+local python3_path = vim.fn.exepath("python3")
+
+if python3_path ~= nil and python3_path ~= "" then
+	vim.g.python3_host_prog = python3_path
+elseif vim.fn.has("macunix") == 1 then
+	local brew_python = "/opt/homebrew/bin/python3"
+	if vim.fn.executable(brew_python) == 1 then
+		vim.g.python3_host_prog = brew_python
+	else
+		vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
+	end
+else
+	vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
+end
 
 -----------------------------------------------------------
 -- 4. 키매핑 설정 (Keymaps)
