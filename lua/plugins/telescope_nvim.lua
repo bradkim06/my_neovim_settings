@@ -25,25 +25,30 @@ function M.config()
     -----------------------------------------------------------
     -- 2. 바이너리 파일 미리보기 방지용 커스텀 maker
     -----------------------------------------------------------
-    -- (파일이 text/* MIME이면 기본 프리뷰어 사용,
-    --  그렇지 않으면 "BINARY"만 표기하도록 함)
+    -- (charset이 binary인 파일만 "BINARY"로 표기,
+    --  JSON 등 application/* 텍스트 파일과 빈 파일은 그대로 미리보기)
     -----------------------------------------------------------
     local function new_maker(filepath, bufnr, opts)
         filepath = vim.fn.expand(filepath)
         Job:new({
             command = "file",
-            args = { "--mime-type", "-b", filepath },
+            args = { "--mime", "-b", "-L", filepath }, -- 예: "application/json; charset=us-ascii"
             on_exit = function(j)
-                local mime_type = vim.split(j:result()[1], "/")[1]
-                if mime_type == "text" then
-                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                else
-                    vim.schedule(function()
+                local mime = j:result()[1] or ""
+                local is_binary = mime:find("charset=binary", 1, true) and not mime:find("x-empty", 1, true)
+                -- 비동기 콜백이므로 메인 루프에서 실행
+                vim.schedule(function()
+                    if not vim.api.nvim_buf_is_valid(bufnr) then
+                        return -- 그 사이 다른 항목으로 이동한 경우
+                    end
+                    if not is_binary then
+                        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+                    else
                         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-                    end)
-                end
+                    end
+                end)
             end,
-        }):sync()
+        }):start() -- :sync()는 미리보기마다 UI를 멈춤
     end
 
     -----------------------------------------------------------
