@@ -27,7 +27,7 @@ set.modifiable = true
 -- 일반 동작 관련 설정
 set.hidden = true -- 수정한 버퍼를 저장하지 않고 숨길 수 있음
 set.encoding = "utf-8" -- 내부 인코딩
-set.fileencodings = "utf8" -- 파일 인코딩
+set.fileencodings = "ucs-bom,utf-8,cp949,latin1" -- 읽기 시 시도할 인코딩 (Windows 한글 파일 cp949 지원)
 set.clipboard = "unnamedplus" -- 시스템 클립보드 사용
 set.cursorline = true -- 현재 커서 줄 강조
 
