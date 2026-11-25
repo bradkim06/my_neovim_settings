@@ -52,7 +52,6 @@ require("lazy").setup({
     require("plugins.markdown-preview_nvim"), -- markdown previewer
 
     require("plugins.nvim_colorizer_lua"),    -- 코드 내 색상 문자열 시각화
-    require("plugins.nvim_lastplace"),        -- 마지막 편집 위치 복원
     require("plugins.telescope_nvim"),        -- 강력한 파일 및 심볼 검색
     require("plugins.sniprun"),               -- 코드 스니펫 실행 플러그인
     require("plugins.which_key_nvim"),        -- 키 바인딩 도움말 팝업
