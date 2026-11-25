@@ -87,4 +87,7 @@ require("lazy").setup({
     require("plugins.nvim_spectre"),    -- 다중 파일 검색 및 치환 (필요시 활성화)
 	require("plugins.trouble_nvim"),
     --]]
+}, {
+    -- luarocks가 필요한 플러그인이 없으므로 hererocks 설치/검사 비활성화
+    rocks = { enabled = false },
 })
