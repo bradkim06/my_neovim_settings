@@ -10,9 +10,9 @@
 -- JSON 파일의 확장자를 jsonc 로 인식하도록 설정
 local jsonc_group = vim.api.nvim_create_augroup("JsoncFiletype", { clear = true })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	group = jsonc_group,
-	pattern = "*.json",
-	command = "set filetype=jsonc",
+    group = jsonc_group,
+    pattern = "*.json",
+    command = "set filetype=jsonc",
 })
 
 -----------------------------------------------------------
@@ -65,7 +65,7 @@ set.undofile = true -- 언두 파일 활성화
 set.nrformats = "" -- 모든 숫자를 10진법으로 처리 (선행 0 무시)
 set.textwidth = 80 -- 자동 줄바꿈 기준 길이 80자
 if set.colorcolumn then -- 수직 컬럼 표시 (80자 위치)
-	set.colorcolumn = "80"
+    set.colorcolumn = "80"
 end
 
 -----------------------------------------------------------
@@ -80,16 +80,16 @@ vim.g.loaded_ruby_provider = 0
 local python3_path = vim.fn.exepath("python3")
 
 if python3_path ~= nil and python3_path ~= "" then
-	vim.g.python3_host_prog = python3_path
+    vim.g.python3_host_prog = python3_path
 elseif vim.fn.has("macunix") == 1 then
-	local brew_python = "/opt/homebrew/bin/python3"
-	if vim.fn.executable(brew_python) == 1 then
-		vim.g.python3_host_prog = brew_python
-	else
-		vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
-	end
+    local brew_python = "/opt/homebrew/bin/python3"
+    if vim.fn.executable(brew_python) == 1 then
+        vim.g.python3_host_prog = brew_python
+    else
+        vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
+    end
 else
-	vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
+    vim.notify("Python3 interpreter not found. Please install python3.", vim.log.levels.WARN)
 end
 
 -----------------------------------------------------------
@@ -121,14 +121,14 @@ vim.keymap.set("n", "<C-a>", "ggVG", opts)
 -- [4.4] 시각적 선택 영역 검색 설정
 -- 선택 영역을 검색 패턴으로 설정하는 함수 (글로벌 함수로 등록)
 local function set_search_pattern()
-	-- 현재 's' 레지스터 값을 임시 저장
-	local temp = vim.fn.getreg("s")
-	-- 선택 영역을 's' 레지스터에 복사
-	vim.cmd('norm! gv"sy')
-	-- 's' 레지스터 값을 검색 패턴으로 설정 (특수문자 및 개행 문자 이스케이프)
-	vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "/\\"), "\\n", "\\\\n", "g"))
-	-- 원래 's' 레지스터 값 복원
-	vim.fn.setreg("s", temp)
+    -- 현재 's' 레지스터 값을 임시 저장
+    local temp = vim.fn.getreg("s")
+    -- 선택 영역을 's' 레지스터에 복사
+    vim.cmd('norm! gv"sy')
+    -- 's' 레지스터 값을 검색 패턴으로 설정 (특수문자 및 개행 문자 이스케이프)
+    vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "/\\"), "\\n", "\\\\n", "g"))
+    -- 원래 's' 레지스터 값 복원
+    vim.fn.setreg("s", temp)
 end
 _G.SetSearchPattern = set_search_pattern -- _G에 등록하여 keymap에서 사용
 
@@ -141,72 +141,72 @@ vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>?<CR>]], opts) -- 
 -----------------------------------------------------------
 -- 24-bit (True Color) 모드 활성화
 if os.getenv("TMUX") == nil and os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
-	if vim.fn.has("termguicolors") == 1 then
-		vim.o.termguicolors = true
-	end
+    if vim.fn.has("termguicolors") == 1 then
+        vim.o.termguicolors = true
+    end
 end
 
 -- Neovim 터미널 색상 설정
 if vim.fn.has("nvim") == 1 then
-	-- Neovim 내장 터미널 색상 지정 (각 색상은 필요에 따라 커스터마이징 가능)
-	vim.g.terminal_color_0 = "#4e4e4e"
-	vim.g.terminal_color_1 = "#d68787"
-	vim.g.terminal_color_2 = "#5f865f"
-	vim.g.terminal_color_3 = "#d8af5f"
-	vim.g.terminal_color_4 = "#85add4"
-	vim.g.terminal_color_5 = "#d7afaf"
-	vim.g.terminal_color_6 = "#87afaf"
-	vim.g.terminal_color_7 = "#d0d0d0"
-	vim.g.terminal_color_8 = "#626262"
-	vim.g.terminal_color_9 = "#d75f87"
-	vim.g.terminal_color_10 = "#87af87"
-	vim.g.terminal_color_11 = "#ffd787"
-	vim.g.terminal_color_12 = "#add4fb"
-	vim.g.terminal_color_13 = "#ffafaf"
-	vim.g.terminal_color_14 = "#87d7d7"
-	vim.g.terminal_color_15 = "#e4e4e4"
+    -- Neovim 내장 터미널 색상 지정 (각 색상은 필요에 따라 커스터마이징 가능)
+    vim.g.terminal_color_0 = "#4e4e4e"
+    vim.g.terminal_color_1 = "#d68787"
+    vim.g.terminal_color_2 = "#5f865f"
+    vim.g.terminal_color_3 = "#d8af5f"
+    vim.g.terminal_color_4 = "#85add4"
+    vim.g.terminal_color_5 = "#d7afaf"
+    vim.g.terminal_color_6 = "#87afaf"
+    vim.g.terminal_color_7 = "#d0d0d0"
+    vim.g.terminal_color_8 = "#626262"
+    vim.g.terminal_color_9 = "#d75f87"
+    vim.g.terminal_color_10 = "#87af87"
+    vim.g.terminal_color_11 = "#ffd787"
+    vim.g.terminal_color_12 = "#add4fb"
+    vim.g.terminal_color_13 = "#ffafaf"
+    vim.g.terminal_color_14 = "#87d7d7"
+    vim.g.terminal_color_15 = "#e4e4e4"
 
-	-- 채움 문자(fillchars) 설정 : 수직 분할선 및 폴드라인 스타일
-	vim.o.fillchars = "vert:|,fold:-"
+    -- 채움 문자(fillchars) 설정 : 수직 분할선 및 폴드라인 스타일
+    vim.o.fillchars = "vert:|,fold:-"
 
-	-- 파일 열 때 마지막 커서 위치 복원
-	local cursor_group = vim.api.nvim_create_augroup("RestoreCursor", { clear = true })
-	vim.api.nvim_create_autocmd("BufReadPost", {
-		group = cursor_group,
-		pattern = "*",
-		callback = function(event)
-			-- 커밋 메시지 등은 항상 첫 줄에서 시작
-			local ignore_ft = { gitcommit = true, gitrebase = true, svn = true, hgcommit = true }
-			if ignore_ft[vim.bo[event.buf].filetype] or vim.bo[event.buf].buftype ~= "" then
-				return
-			end
-			local mark = vim.api.nvim_buf_get_mark(0, '"')
-			local lcount = vim.api.nvim_buf_line_count(0)
-			if mark[1] > 0 and mark[1] <= lcount then
-				vim.cmd('normal! g`"')
-			end
-		end,
-	})
+    -- 파일 열 때 마지막 커서 위치 복원
+    local cursor_group = vim.api.nvim_create_augroup("RestoreCursor", { clear = true })
+    vim.api.nvim_create_autocmd("BufReadPost", {
+        group = cursor_group,
+        pattern = "*",
+        callback = function(event)
+            -- 커밋 메시지 등은 항상 첫 줄에서 시작
+            local ignore_ft = { gitcommit = true, gitrebase = true, svn = true, hgcommit = true }
+            if ignore_ft[vim.bo[event.buf].filetype] or vim.bo[event.buf].buftype ~= "" then
+                return
+            end
+            local mark = vim.api.nvim_buf_get_mark(0, '"')
+            local lcount = vim.api.nvim_buf_line_count(0)
+            if mark[1] > 0 and mark[1] <= lcount then
+                vim.cmd('normal! g`"')
+            end
+        end,
+    })
 else
-	-- Vim (Neovim 이외)에서 사용할 터미널 ANSI 색상 설정
-	vim.g.terminal_ansi_colors = {
-		"#4e4e4e",
-		"#d68787",
-		"#5f865f",
-		"#d8af5f",
-		"#85add4",
-		"#d7afaf",
-		"#87afaf",
-		"#d0d0d0",
-		"#626262",
-		"#d75f87",
-		"#87af87",
-		"#ffd787",
-		"#add4fb",
-		"#ffafaf",
-		"#87d7d7",
-		"#e4e4e4",
-	}
+    -- Vim (Neovim 이외)에서 사용할 터미널 ANSI 색상 설정
+    vim.g.terminal_ansi_colors = {
+        "#4e4e4e",
+        "#d68787",
+        "#5f865f",
+        "#d8af5f",
+        "#85add4",
+        "#d7afaf",
+        "#87afaf",
+        "#d0d0d0",
+        "#626262",
+        "#d75f87",
+        "#87af87",
+        "#ffd787",
+        "#add4fb",
+        "#ffafaf",
+        "#87d7d7",
+        "#e4e4e4",
+    }
 end
 
 -----------------------------------------------------------
@@ -218,26 +218,25 @@ vim.keymap.set("i", "<F6>", '<C-R>=os.date("%Y-%m-%dT%H:%M:%S")<cr>', {}) -- 현
 
 -- [6.2] 현재 파일 이름 변경 함수
 local function rename_file()
-	local old_name = vim.fn.expand("%") -- 현재 파일 경로
-	if old_name == "" then
-		vim.notify("Current buffer has no file name", vim.log.levels.WARN)
-		return
-	end
-	local old_path = vim.fn.expand("%:p")
-	local new_name = vim.fn.input("New file name: ", old_name, "file")
-	if new_name == "" or new_name == old_name then
-		return
-	end
-	vim.cmd.saveas(vim.fn.fnameescape(new_name)) -- 새 이름으로 저장
-	if vim.fn.delete(old_path) ~= 0 then -- 이전 파일 삭제 (셸 미사용)
-		vim.notify("Failed to delete " .. old_path, vim.log.levels.ERROR)
-	end
-	vim.cmd("silent! bwipeout " .. vim.fn.bufnr(old_path)) -- 이전 이름의 버퍼 정리
-	vim.cmd("redraw") -- 화면 갱신
+    local old_name = vim.fn.expand("%") -- 현재 파일 경로
+    if old_name == "" then
+        vim.notify("Current buffer has no file name", vim.log.levels.WARN)
+        return
+    end
+    local old_path = vim.fn.expand("%:p")
+    local new_name = vim.fn.input("New file name: ", old_name, "file")
+    if new_name == "" or new_name == old_name then
+        return
+    end
+    vim.cmd.saveas(vim.fn.fnameescape(new_name)) -- 새 이름으로 저장
+    if vim.fn.delete(old_path) ~= 0 then -- 이전 파일 삭제 (셸 미사용)
+        vim.notify("Failed to delete " .. old_path, vim.log.levels.ERROR)
+    end
+    vim.cmd("silent! bwipeout " .. vim.fn.bufnr(old_path)) -- 이전 이름의 버퍼 정리
+    vim.cmd("redraw") -- 화면 갱신
 end
 vim.keymap.set("n", "<leader>n", rename_file, { silent = true, desc = "Rename current file" })
 
 -- [6.3] 외부 명령어 실행 매핑 (예: west 명령어)
 vim.keymap.set("n", "<F3>", ":!west build<cr>", opts) -- 빌드 실행
 vim.keymap.set("n", "<F4>", ":!west flash<cr>", opts) -- 플래시 실행
-

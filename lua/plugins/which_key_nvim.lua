@@ -2,39 +2,39 @@
 -- which-key.nvim : 키맵 힌트를 제공하는 플러그인
 -----------------------------------------------------------
 local M = {
-	-- 플러그인 리포지토리
-	"folke/which-key.nvim",
+    -- 플러그인 리포지토리
+    "folke/which-key.nvim",
 
-	-- Lazy.nvim 로드 트리거
-	event = "VeryLazy",
+    -- Lazy.nvim 로드 트리거
+    event = "VeryLazy",
 
-	-----------------------------------------------------------
-	-- 사용자 설정 (Lazy.nvim에서 M.opts로 전달)
-	-----------------------------------------------------------
-	opts = {
-		-- 여기에 which-key.nvim 설정을 넣을 수 있습니다.
-		-- 예) plugins = { spelling = { enabled = true } }
-		--
-		-- 참고: https://github.com/folke/which-key.nvim#setup
-		--
-		-- 만약 특별한 설정이 없다면 빈 객체 유지.
-	},
+    -----------------------------------------------------------
+    -- 사용자 설정 (Lazy.nvim에서 M.opts로 전달)
+    -----------------------------------------------------------
+    opts = {
+        -- 여기에 which-key.nvim 설정을 넣을 수 있습니다.
+        -- 예) plugins = { spelling = { enabled = true } }
+        --
+        -- 참고: https://github.com/folke/which-key.nvim#setup
+        --
+        -- 만약 특별한 설정이 없다면 빈 객체 유지.
+    },
 }
 
 -----------------------------------------------------------
 -- 초기화 함수 (Lazy.nvim에서 plugin.init를 호출)
 -----------------------------------------------------------
 function M.init()
-	-- 입력 대기 시간(timeoutlen)은 config/basic.lua에서 관리
+    -- 입력 대기 시간(timeoutlen)은 config/basic.lua에서 관리
 
-	-- 색상 스킴 변경 시점에 WhichKeyValue 하이라이트 적용
-	--      (WhichKeyValue는 which-key에서 key-value 표시 부분)
-	vim.api.nvim_create_autocmd("ColorScheme", {
-		pattern = "*",
-		callback = function()
-			vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = "#EEEEEE" })
-		end,
-	})
+    -- 색상 스킴 변경 시점에 WhichKeyValue 하이라이트 적용
+    --      (WhichKeyValue는 which-key에서 key-value 표시 부분)
+    vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+            vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = "#EEEEEE" })
+        end,
+    })
 end
 
 -----------------------------------------------------------

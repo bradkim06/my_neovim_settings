@@ -47,10 +47,10 @@ vim.keymap.set("n", "<C-a>", "ggVG", opts) -- 전체 선택
 
 -- [유지] Visual 모드에서 선택 영역 검색
 local function set_search_pattern()
-	local temp = vim.fn.getreg("s")
-	vim.cmd('norm! gv"sy')
-	vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "/\\"), "\\n", "\\\\n", "g"))
-	vim.fn.setreg("s", temp)
+    local temp = vim.fn.getreg("s")
+    vim.cmd('norm! gv"sy')
+    vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "/\\"), "\\n", "\\\\n", "g"))
+    vim.fn.setreg("s", temp)
 end
 _G.SetSearchPattern = set_search_pattern
 vim.keymap.set("x", "*", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
@@ -67,13 +67,13 @@ vim.keymap.set("i", "<F6>", '<C-R>=os.date("%Y-%m-%dT%H:%M:%S")<cr>', {})
 -- 기존 방식은 VSCode의 파일 탐색기와 연동되지 않을 수 있습니다.
 -- 이 키맵 대신 VSCode 파일 탐색기에서 파일을 선택하고 F2 키를 누르는 것을 권장합니다.
 local function rename_file()
-	local old_name = vim.fn.expand("%:p") -- 현재 파일의 전체 경로
-	local new_name = vim.fn.input("New file name: ", old_name, "file")
-	if new_name ~= "" and new_name ~= old_name then
-		-- vim.cmd('saveas ' .. new_name) -- 새 이름으로 저장
-		-- vim.cmd('silent !rm ' .. old_name) -- 이전 파일 삭제 (위험할 수 있음)
-		-- vim.cmd('redraw')
-		vim.notify("파일 이름 변경은 VSCode 탐색기에서 F2를 사용해주세요.", vim.log.levels.INFO)
-	end
+    local old_name = vim.fn.expand("%:p") -- 현재 파일의 전체 경로
+    local new_name = vim.fn.input("New file name: ", old_name, "file")
+    if new_name ~= "" and new_name ~= old_name then
+        -- vim.cmd('saveas ' .. new_name) -- 새 이름으로 저장
+        -- vim.cmd('silent !rm ' .. old_name) -- 이전 파일 삭제 (위험할 수 있음)
+        -- vim.cmd('redraw')
+        vim.notify("파일 이름 변경은 VSCode 탐색기에서 F2를 사용해주세요.", vim.log.levels.INFO)
+    end
 end
 vim.keymap.set("n", "<leader>n", rename_file, opts)

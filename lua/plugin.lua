@@ -16,7 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none", -- 불필요한 blob 데이터 제외
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",    -- 최신 안정화 버전 사용
+        "--branch=stable", -- 최신 안정화 버전 사용
         lazypath,
     })
 end
@@ -40,25 +40,25 @@ require("lazy").setup({
     -------------------------------------------------------------------------
     -- 코드 편집 및 도구 관련 플러그인
     -------------------------------------------------------------------------
-    require("plugins.conform_nvim"),          -- 코드 자동 포맷팅 (Conform)
-    require("plugins.gitsigns_nvim"),         -- Git 변경사항 표시
-    require("plugins.lazygit_nvim"),          -- Neovim 내에서 lazygit 터미널 UI
-    require("plugins.bufferline_nvim"),       -- 버퍼라인(탭) 플러그인
-    require("plugins.nvim_treesitter"),       -- Tree-sitter 기반 문법 강조 및 코드 네비게이션
-    require("plugins.comment_nvim"),          -- 주석 추가/삭제 플러그인
-    require("plugins.lualine_nvim"),          -- 상태줄(라인) 플러그인
-    require("plugins.todo-comments_nvim"),    -- todo 코멘트 하이라이트
+    require("plugins.conform_nvim"), -- 코드 자동 포맷팅 (Conform)
+    require("plugins.gitsigns_nvim"), -- Git 변경사항 표시
+    require("plugins.lazygit_nvim"), -- Neovim 내에서 lazygit 터미널 UI
+    require("plugins.bufferline_nvim"), -- 버퍼라인(탭) 플러그인
+    require("plugins.nvim_treesitter"), -- Tree-sitter 기반 문법 강조 및 코드 네비게이션
+    require("plugins.comment_nvim"), -- 주석 추가/삭제 플러그인
+    require("plugins.lualine_nvim"), -- 상태줄(라인) 플러그인
+    require("plugins.todo-comments_nvim"), -- todo 코멘트 하이라이트
     require("plugins.markdown-preview_nvim"), -- markdown previewer
 
-    require("plugins.nvim_colorizer_lua"),    -- 코드 내 색상 문자열 시각화
-    require("plugins.telescope_nvim"),        -- 강력한 파일 및 심볼 검색
-    require("plugins.sniprun"),               -- 코드 스니펫 실행 플러그인
-    require("plugins.which_key_nvim"),        -- 키 바인딩 도움말 팝업
-    require("plugins.nvim_surround"),         -- 둘러싸기 연산 지원 플러그인
-    require("plugins.nvim_cmp"),              -- 자동 완성 플러그인
-    require("plugins.nvim_autopairs"),        -- 자동 괄호, 따옴표 매칭
-    require("plugins.neogen"),                -- 문서 주석 자동 생성
-    require("plugins.nvim_lint"),             -- 코드 린팅 플러그인
+    require("plugins.nvim_colorizer_lua"), -- 코드 내 색상 문자열 시각화
+    require("plugins.telescope_nvim"), -- 강력한 파일 및 심볼 검색
+    require("plugins.sniprun"), -- 코드 스니펫 실행 플러그인
+    require("plugins.which_key_nvim"), -- 키 바인딩 도움말 팝업
+    require("plugins.nvim_surround"), -- 둘러싸기 연산 지원 플러그인
+    require("plugins.nvim_cmp"), -- 자동 완성 플러그인
+    require("plugins.nvim_autopairs"), -- 자동 괄호, 따옴표 매칭
+    require("plugins.neogen"), -- 문서 주석 자동 생성
+    require("plugins.nvim_lint"), -- 코드 린팅 플러그인
     require("plugins.toggleterm"),
     require("plugins.render_markdown"),
 

@@ -27,7 +27,7 @@ else
             local view = vim.fn.winsaveview()
             vim.cmd([[silent! %s/\r//g]])
             vim.fn.winrestview(view)
-        end
+        end,
     })
     -- 3. WSL 클립보드
     --    win32yank.exe가 PATH에 있으면 사용 (빠르고 UTF-8/CRLF 자동 처리)

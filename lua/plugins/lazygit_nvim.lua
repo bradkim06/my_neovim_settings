@@ -2,15 +2,15 @@
 -- lazygit.nvim 플러그인 설정 (lazy.nvim 관리)
 -----------------------------------------------------------
 local lazygit_nvim = {
-	"kdheepak/lazygit.nvim", -- lazygit을 Neovim 내에서 실행할 수 있게 해주는 플러그인
-	cmd = "LazyGit", -- :Lazygit 명령어 실행 시 플러그인 로드
+    "kdheepak/lazygit.nvim", -- lazygit을 Neovim 내에서 실행할 수 있게 해주는 플러그인
+    cmd = "LazyGit", -- :Lazygit 명령어 실행 시 플러그인 로드
 }
 
 -----------------------------------------------------------
 -- 키 매핑 설정: <F2> 키를 눌러 lazygit 실행
 -----------------------------------------------------------
 lazygit_nvim.keys = {
-	{ "<F2>", "<cmd>LazyGit<cr>", desc = "Launch lazygit" },
+    { "<F2>", "<cmd>LazyGit<cr>", desc = "Launch lazygit" },
 }
 
 -----------------------------------------------------------

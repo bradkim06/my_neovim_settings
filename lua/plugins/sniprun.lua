@@ -2,29 +2,29 @@
 -- sniprun: 코드 스니펫을 빠르게 실행하는 플러그인
 -----------------------------------------------------------
 local M = {
-	"michaelb/sniprun",
-	branch = "master",
-	-- 컴파일/설치 과정을 위한 명령어
-	build = "sh install.sh",
-	-- (참고) 'sh install.sh 1'로 local compile 가능 (Rust >= 1.65 필요)
-	cmd = "SnipRun", -- Lazy.nvim에서 'SnipRun' 명령어가 실행될 때 로드
+    "michaelb/sniprun",
+    branch = "master",
+    -- 컴파일/설치 과정을 위한 명령어
+    build = "sh install.sh",
+    -- (참고) 'sh install.sh 1'로 local compile 가능 (Rust >= 1.65 필요)
+    cmd = "SnipRun", -- Lazy.nvim에서 'SnipRun' 명령어가 실행될 때 로드
 }
 
 -----------------------------------------------------------
 -- 플러그인 설정 함수 (Lazy.nvim이 로드 후 자동 호출)
 -----------------------------------------------------------
 function M.config()
-	-- 기본적으로 sniprun은 require("sniprun").setup({ ... })로 설정을 초기화
-	require("sniprun").setup({
-		-----------------------------------------------------------
-		-- 여기에 사용자 옵션을 넣을 수 있습니다.
-		-- 예시:
-		-- display = { "Classic", "VirtualTextOk" },
-		-- interpreter_options = {
-		--   GFM_original = { use_on_filetypes = {"markdown.pandoc"} },
-		-- },
-		-----------------------------------------------------------
-	})
+    -- 기본적으로 sniprun은 require("sniprun").setup({ ... })로 설정을 초기화
+    require("sniprun").setup({
+        -----------------------------------------------------------
+        -- 여기에 사용자 옵션을 넣을 수 있습니다.
+        -- 예시:
+        -- display = { "Classic", "VirtualTextOk" },
+        -- interpreter_options = {
+        --   GFM_original = { use_on_filetypes = {"markdown.pandoc"} },
+        -- },
+        -----------------------------------------------------------
+    })
 end
 
 -----------------------------------------------------------
