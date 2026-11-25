@@ -54,7 +54,7 @@ local function set_search_pattern()
 end
 _G.SetSearchPattern = set_search_pattern
 vim.keymap.set("x", "*", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
-vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
+vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>?<CR>]], opts) -- 역방향 검색
 
 -----------------------------------------------------------
 -- 3. 유틸리티 함수 및 매핑
@@ -76,4 +76,4 @@ local function rename_file()
 		vim.notify("파일 이름 변경은 VSCode 탐색기에서 F2를 사용해주세요.", vim.log.levels.INFO)
 	end
 end
-vim.keymap.set("n", "<leader>n", ":lua rename_file()<cr>", opts)
+vim.keymap.set("n", "<leader>n", rename_file, opts)
