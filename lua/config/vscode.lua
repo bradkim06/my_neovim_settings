@@ -34,7 +34,7 @@ local opts = { noremap = true, silent = true }
 
 -- [유지] 설정 파일 편집 및 리로드
 vim.keymap.set("n", "<leader>ve", ":edit $MYVIMRC<cr>", opts)
-vim.keymap.set("n", "<leader>vs", ":source $MYVIMRC<cr>", opts)
+vim.keymap.set("n", "<leader>vs", "<cmd>source %<cr>", { silent = true, desc = "Source current file" }) -- lazy.nvim은 전체 재로딩 미지원
 
 -- [유지] 버퍼(VSCode 탭) 관리
 -- 참고: VSCode의 기본 단축키(Ctrl+W, Ctrl+Tab)도 동일하게 작동합니다.

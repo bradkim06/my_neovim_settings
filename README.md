@@ -91,7 +91,7 @@ nvim   # 첫 실행 시 lazy.nvim과 플러그인, Mason이 LSP 서버를 자동
 |---|---|
 | `<leader>ve` | `init.lua` 열기 |
 | `<leader>vl` | `lua/config/basic.lua` 열기 |
-| `<leader>vs` | `init.lua` 다시 불러오기 |
+| `<leader>vs` | 현재 파일 다시 불러오기 (`:source %`, 옵션·키맵 수정 반영용) |
 
 ### 검색 (Telescope)
 

@@ -99,7 +99,8 @@ local opts = { noremap = true, silent = true }
 -- [4.1] MYVIMRC 관련 매핑
 vim.keymap.set("n", "<leader>ve", ":edit $MYVIMRC<cr>", opts) -- MYVIMRC 편집
 vim.keymap.set("n", "<leader>vl", ":edit " .. vim.fn.stdpath("config") .. "/lua/config/basic.lua<cr>", opts) -- 기본 설정 파일 편집
-vim.keymap.set("n", "<leader>vs", ":source $MYVIMRC<cr>", opts) -- 설정 파일 재로딩
+-- lazy.nvim은 init.lua 전체 재로딩을 지원하지 않으므로 현재 파일만 다시 불러옴
+vim.keymap.set("n", "<leader>vs", "<cmd>source %<cr>", { silent = true, desc = "Source current file" })
 
 -- [4.2] 버퍼 관리 매핑
 -- 현재 버퍼만 남기고 모두 닫기
