@@ -52,7 +52,7 @@ nvim   # 첫 실행 시 lazy.nvim과 플러그인, Mason이 LSP 서버를 자동
 | Git | gitsigns, lazygit.nvim, diffview.nvim |
 | UI | lualine, bufferline, which-key, todo-comments, nvim-colorizer |
 | 편집 | Comment.nvim, nvim-surround, nvim-autopairs, neogen(Doxygen 주석) |
-| Markdown | render-markdown.nvim(버퍼 내 렌더링), markdown-preview.nvim(브라우저) |
+| Markdown | render-markdown.nvim(기본 꺼짐, 분할 미리보기/토글), markdown-preview.nvim(브라우저) |
 | 기타 | toggleterm(플로팅 터미널), sniprun(코드 조각 실행) |
 
 기본 동작:
@@ -188,6 +188,7 @@ nvim   # 첫 실행 시 lazy.nvim과 플러그인, Mason이 LSP 서버를 자동
 | `<C-\>` | n, i, t | 플로팅 터미널 토글 |
 | `<leader>t` | n | 플로팅 터미널 토글 |
 | `<leader>mp` | n | Markdown 분할 미리보기 토글 (render-markdown) |
+| `<leader>mr` | n | 현재 버퍼에서 Markdown 렌더링 토글 (기본은 꺼짐) |
 | `:MarkdownPreviewToggle` | | 브라우저 미리보기 토글 |
 
 ---
