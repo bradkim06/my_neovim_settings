@@ -29,20 +29,39 @@ else
             vim.fn.winrestview(view)
         end
     })
+    -- 3. WSL 클립보드
+    --    win32yank.exe가 PATH에 있으면 사용 (빠르고 UTF-8/CRLF 자동 처리)
+    --    없으면 clip.exe + PowerShell 사용. 한글이 깨지지 않도록
+    --    복사는 UTF-16LE로 변환하고 붙여넣기는 UTF-8로 출력한다.
     if vim.fn.has("wsl") == 1 then
-        vim.g.clipboard = {
-            name = "WslClipboard",
-            copy = {
-                ["+"] = "clip.exe",
-                ["*"] = "clip.exe",
-            },
-            paste = {
-                ["+"] =
-                'powershell.exe -NoProfile -Command [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                ["*"] =
-                'powershell.exe -NoProfile -Command [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-            },
-            cache_enabled = 0,
-        }
+        if vim.fn.executable("win32yank.exe") == 1 then
+            vim.g.clipboard = {
+                name = "win32yank-wsl",
+                copy = {
+                    ["+"] = { "win32yank.exe", "-i", "--crlf" },
+                    ["*"] = { "win32yank.exe", "-i", "--crlf" },
+                },
+                paste = {
+                    ["+"] = { "win32yank.exe", "-o", "--lf" },
+                    ["*"] = { "win32yank.exe", "-o", "--lf" },
+                },
+                cache_enabled = 0,
+            }
+        else
+            local copy = { "sh", "-c", "iconv -f utf-8 -t utf-16le | clip.exe" }
+            local paste = {
+                "powershell.exe",
+                "-NoProfile",
+                "-NoLogo",
+                "-Command",
+                '[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; [Console]::Out.Write((Get-Clipboard -Raw) -replace "`r", "")',
+            }
+            vim.g.clipboard = {
+                name = "WslClipboard",
+                copy = { ["+"] = copy, ["*"] = copy },
+                paste = { ["+"] = paste, ["*"] = paste },
+                cache_enabled = 0,
+            }
+        end
     end
 end
