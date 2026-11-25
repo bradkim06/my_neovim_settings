@@ -144,9 +144,7 @@ function M.config()
 
     -- Neovim 네이티브 LSP 기능을 사용하는 매핑
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, map_opts("LSP: Rename Symbol"))
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, map_opts("LSP: Hover Documentation"))
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, map_opts("LSP: Previous Diagnostic"))
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, map_opts("LSP: Next Diagnostic"))
+    -- K(hover), [d / ]d(진단 이동)는 Neovim 0.11 기본 매핑을 사용
 end
 
 return M

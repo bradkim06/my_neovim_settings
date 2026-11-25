@@ -144,16 +144,13 @@ nvim_lspconfig.config = function()
 		virtual_text = false,
 		severity_sort = true,
 		underline = false,
-		float = { border = "rounded", source = "always" },
+		float = { border = "rounded", source = true },
 	})
 
 	----------------------------------------------------------------
-	-- hover / signatureHelp UI
+	-- hover / signatureHelp 등 플로팅 창 테두리 (Neovim 0.11+)
 	----------------------------------------------------------------
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-
-	vim.lsp.handlers["textDocument/signatureHelp"] =
-		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+	vim.o.winborder = "rounded"
 end
 
 return nvim_lspconfig
