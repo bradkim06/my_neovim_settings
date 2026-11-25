@@ -39,15 +39,13 @@ nvim_lspconfig.config = function()
 
 	-- bufnr 기반 루트 탐색 헬퍼
 	local function root_with(markers, fallback_to_cwd)
-		return function(bufnr)
-			-- bufnr -> 파일 경로
-			local name = vim.api.nvim_buf_get_name(bufnr)
-			local start = (name ~= "" and name) or vim.loop.cwd()
-			local found = vim.fs.find(markers, { upward = true, path = start })[1]
-			if found then
-				return vim.fs.dirname(found)
+		return function(bufnr, on_dir)
+			local root = vim.fs.root(bufnr, markers)
+			if root then
+				on_dir(root)
+			elseif fallback_to_cwd then
+				on_dir(vim.fn.getcwd())
 			end
-			return fallback_to_cwd and vim.loop.cwd() or nil
 		end
 	end
 
@@ -65,7 +63,7 @@ nvim_lspconfig.config = function()
 	----------------------------------------------------------------
 	local function enable_with(name, opts)
 		opts = opts or {}
-		opts.capabilities = vim.tbl_deep_extend("force", { capabilities = capabilities }, opts or {})
+		opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
 		vim.lsp.config(name, opts)
 		vim.lsp.enable(name)
 	end
