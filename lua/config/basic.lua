@@ -95,7 +95,7 @@ local opts = { noremap = true, silent = true }
 
 -- [4.1] MYVIMRC 관련 매핑
 vim.keymap.set("n", "<leader>ve", ":edit $MYVIMRC<cr>", opts) -- MYVIMRC 편집
-vim.keymap.set("n", "<leader>vl", ":edit ~/.config/nvim/lua/basic.lua<cr>", opts) -- 기본 설정 파일 편집
+vim.keymap.set("n", "<leader>vl", ":edit " .. vim.fn.stdpath("config") .. "/lua/config/basic.lua<cr>", opts) -- 기본 설정 파일 편집
 vim.keymap.set("n", "<leader>vs", ":source $MYVIMRC<cr>", opts) -- 설정 파일 재로딩
 
 -- [4.2] 버퍼 관리 매핑
@@ -128,7 +128,7 @@ _G.SetSearchPattern = set_search_pattern -- _G에 등록하여 keymap에서 사�
 
 -- Visual 모드에서 * 와 # 키를 사용해 선택 영역 검색 실행
 vim.keymap.set("x", "*", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
-vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>/<C-R>=@/<CR><CR>]], opts)
+vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>?<CR>]], opts) -- 역방향 검색
 
 -----------------------------------------------------------
 -- 5. 컬러 및 터미널 설정
@@ -208,14 +208,23 @@ vim.keymap.set("i", "<F6>", '<C-R>=os.date("%Y-%m-%dT%H:%M:%S")<cr>', {}) -- 현
 -- [6.2] 현재 파일 이름 변경 함수
 local function rename_file()
 	local old_name = vim.fn.expand("%") -- 현재 파일 경로
-	local new_name = vim.fn.input("New file name: ", old_name, "file")
-	if new_name ~= "" and new_name ~= old_name then
-		vim.cmd("saveas " .. new_name) -- 새 이름으로 저장
-		vim.cmd("silent !rm " .. old_name) -- 이전 파일 삭제
-		vim.cmd("redraw") -- 화면 갱신
+	if old_name == "" then
+		vim.notify("Current buffer has no file name", vim.log.levels.WARN)
+		return
 	end
+	local old_path = vim.fn.expand("%:p")
+	local new_name = vim.fn.input("New file name: ", old_name, "file")
+	if new_name == "" or new_name == old_name then
+		return
+	end
+	vim.cmd.saveas(vim.fn.fnameescape(new_name)) -- 새 이름으로 저장
+	if vim.fn.delete(old_path) ~= 0 then -- 이전 파일 삭제 (셸 미사용)
+		vim.notify("Failed to delete " .. old_path, vim.log.levels.ERROR)
+	end
+	vim.cmd("silent! bwipeout " .. vim.fn.bufnr(old_path)) -- 이전 이름의 버퍼 정리
+	vim.cmd("redraw") -- 화면 갱신
 end
-vim.keymap.set("n", "<leader>n", ":lua rename_file()<cr>", opts)
+vim.keymap.set("n", "<leader>n", rename_file, { silent = true, desc = "Rename current file" })
 
 -- [6.3] 외부 명령어 실행 매핑 (예: west 명령어)
 vim.keymap.set("n", "<F3>", ":!west build<cr>", opts) -- 빌드 실행
