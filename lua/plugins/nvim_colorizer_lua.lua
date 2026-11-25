@@ -2,7 +2,7 @@
 -- nvim-colorizer.lua 플러그인 설정 (lazy.nvim 관리)
 -----------------------------------------------------------
 local nvim_colorizer_lua = {
-	"norcalli/nvim-colorizer.lua", -- 색상 코드를 하이라이트하고 미리보기하는 플러그인
+	"catgoose/nvim-colorizer.lua", -- 색상 코드 하이라이트 (norcalli 원본은 유지보수 중단)
 	event = "BufRead", -- 버퍼를 읽을 때 플러그인을 로드하여, 빠른 초기 로드를 방지
 }
 
