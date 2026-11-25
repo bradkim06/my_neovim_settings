@@ -54,17 +54,6 @@ function M.config()
 		},
 
 		---------------------------------------------------------
-		-- rainbow : 괄호/태그 색깔 구분
-		---------------------------------------------------------
-		rainbow = {
-			enable = true, -- 레인보우 기능 활성화
-			extended_mode = true, -- 괄호 외에도 HTML 태그 등 구분
-			max_file_lines = nil, -- 파일 크기에 관계없이 적용
-			-- colors = { "#ffd700", "#da70d6", "#87cefa" }, -- 사용자 지정 색 예시
-			-- termcolors = { "Yellow", "Magenta", "Cyan" },
-		},
-
-		---------------------------------------------------------
 		-- (옵션) incremental_selection 등 다른 기능 예시
 		---------------------------------------------------------
 		incremental_selection = {
@@ -112,13 +101,14 @@ function M.config()
 			move = {
 				enable = true,
 				set_jumps = true,
+				-- ]c / [c 는 diff 모드 hunk 이동용으로 남겨두고 클래스는 ]C / [C 사용
 				goto_next_start = {
 					["]f"] = "@function.outer",
-					["]c"] = "@class.outer",
+					["]C"] = "@class.outer",
 				},
 				goto_previous_start = {
 					["[f"] = "@function.outer",
-					["[c"] = "@class.outer",
+					["[C"] = "@class.outer",
 				},
 			},
 		},
