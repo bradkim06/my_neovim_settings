@@ -27,7 +27,7 @@ conform_nvim.config = function()
             lua = { "stylua" },
             -- Python 파일: ruff_format이 사용 가능한 경우 사용, 아니면 isort와 black 조합 사용
             python = { "ruff_format" },
-            -- Markdown 파일에 mdformat 사용
+            -- Markdown 파일에 prettier 사용
             markdown = { "prettier" },
             -- JSON 및 JSONC 파일에 prettierd 사용
             json = { "prettierd" },
@@ -44,7 +44,7 @@ conform_nvim.config = function()
         -- 2. 저장 후 자동 포맷 설정
         -----------------------------------------------------------
         format_on_save = {
-            lsp_fallback = true,
+            lsp_format = "fallback",
             async = false, -- ← 동기화
         },
 
