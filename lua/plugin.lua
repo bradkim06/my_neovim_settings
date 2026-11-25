@@ -35,7 +35,6 @@ require("lazy").setup({
     -------------------------------------------------------------------------
     -- Colorscheme 및 테마 설정
     -------------------------------------------------------------------------
-    "catppuccin/nvim",              -- Catppuccin 테마
     require("plugins.colorscheme"), -- 별도 파일에서 추가 색상 설정 불러오기
 
     -------------------------------------------------------------------------
@@ -62,31 +61,16 @@ require("lazy").setup({
     require("plugins.nvim_lint"),             -- 코드 린팅 플러그인
     require("plugins.toggleterm"),
     require("plugins.render_markdown"),
-    -- require("plugins.markview"),
 
     -------------------------------------------------------------------------
     -- LSP (Language Server Protocol) 관련 플러그인
     -------------------------------------------------------------------------
     require("plugins.nvim_lspconfig"), -- LSP 서버 설정 및 관리
-    -- require("plugins.trouble_nvim"),
-    -- require("plugins.lspsaga_nvim"), -- LSP 확장 기능 및 UI 개선
 
     -------------------------------------------------------------------------
-    -- 플러그인 설치만 필요한 항목
+    -- Git 도구
     -------------------------------------------------------------------------
-    "tpope/vim-sensible",     -- 기본적인 Vim 설정 제공
-    "sindrets/diffview.nvim", -- Git diff 보기 및 내비게이션
-
-    -------------------------------------------------------------------------
-    -- 사용하지 않는 플러그인 (Unused Now)
-    -------------------------------------------------------------------------
-    --[[
-    require("plugins.navigator_lua"),  -- 네비게이션 플러그인
-	require("plugins.wilder_nvim"), -- 검색 및 치환 기능 강화 플러그인
-    require("plugins.compiler_nvim"),  -- 컴파일러 관련 플러그인 (필요시 활성화)
-    require("plugins.nvim_spectre"),    -- 다중 파일 검색 및 치환 (필요시 활성화)
-	require("plugins.trouble_nvim"),
-    --]]
+    require("plugins.diffview_nvim"), -- Git diff 보기 (명령 실행 시 로드)
 }, {
     -- luarocks가 필요한 플러그인이 없으므로 hererocks 설치/검사 비활성화
     rocks = { enabled = false },

@@ -54,6 +54,8 @@ set.softtabstop = 4 -- 입력 시 탭 너비
 set.mouse = "a" -- 마우스 사용 가능
 set.shortmess:append("sI") -- Neovim 인트로 비활성화
 set.signcolumn = "yes" -- 항상 부호 열 표시
+set.scrolloff = 1 -- 커서 위/아래 최소 1줄 여유 (기존 vim-sensible 설정)
+set.sidescrolloff = 5 -- 좌우 최소 5칸 여유 (기존 vim-sensible 설정)
 set.splitbelow = true -- 수평 분할 시 아래쪽에 새 창
 set.splitright = true -- 수직 분할 시 오른쪽에 새 창
 set.timeoutlen = 400 -- 키 입력 대기 시간 (ms)

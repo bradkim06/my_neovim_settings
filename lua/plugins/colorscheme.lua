@@ -1,7 +1,8 @@
 -- main colorscheme
 local colorscheme = {
-	"catppuccin/nvim",
-	"folke/tokyonight.nvim",
+	-- 보조 테마: :colorscheme 실행 시에만 로드
+	{ "catppuccin/nvim", lazy = true },
+	{ "folke/tokyonight.nvim", lazy = true },
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
