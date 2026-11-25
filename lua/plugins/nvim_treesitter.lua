@@ -3,11 +3,12 @@
 -----------------------------------------------------------
 local M = {
 	"nvim-treesitter/nvim-treesitter",
+	branch = "master",
 	build = ":TSUpdate", -- 설치 후 모든 파서 업데이트
-	event = "VeryLazy", -- "매우 느슨한(lazy)" 시점에 로드
+	lazy = false,
 	dependencies = {
 		-- 괄호/태그 컬러링 등
-		"nvim-treesitter/nvim-treesitter-textobjects",
+		{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
 	},
 }
 
@@ -25,14 +26,13 @@ function M.config()
 		---------------------------------------------------------
 		-- "all"로 두면 지원되는 파서를 전부 설치하지만, 필요 없는 언어가 너무 많을 수도 있음.
 		-- 필요하다면 { "c", "cpp", "lua", ... } 등 원하는 목록을 지정 가능.
-		ensured_installed = {
+		ensure_installed = {
 			"bash",
 			"comment",
 			"lua",
 			"markdown",
 			"regex",
 			"yaml",
-			"lua",
 			"c",
 			"cpp",
 			"python",
