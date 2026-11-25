@@ -62,6 +62,8 @@ require("lazy").setup({
     require("plugins.neogen"),                -- 문서 주석 자동 생성
     require("plugins.nvim_lint"),             -- 코드 린팅 플러그인
     require("plugins.toggleterm"),
+    require("plugins.render_markdown"),
+    -- require("plugins.markview"),
 
     -------------------------------------------------------------------------
     -- LSP (Language Server Protocol) 관련 플러그인
