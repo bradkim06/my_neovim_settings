@@ -12,7 +12,7 @@ local M = {
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
 		-- LuaSnip 연동
-		"L3MON4D3/LuaSnip",
+		{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- LSP 스니펫 변환(transformations) 지원
 		"saadparwaiz1/cmp_luasnip",
 
 		-- 아이콘/심볼(디버깅 편) & 자동 괄호 보완
