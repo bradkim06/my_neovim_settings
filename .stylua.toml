@@ -1,0 +1,6 @@
+# conform.nvim formats Lua with stylua on save; keep it consistent with
+# the editor settings (expandtab, shiftwidth=4).
+column_width = 120
+indent_type = "Spaces"
+indent_width = 4
+quote_style = "AutoPreferDouble"
