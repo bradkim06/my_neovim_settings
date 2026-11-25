@@ -25,13 +25,9 @@ local M = {
 -- 초기화 함수 (Lazy.nvim에서 plugin.init를 호출)
 -----------------------------------------------------------
 function M.init()
-	-- (1) 입력 대기 시간 설정: 300ms
-	-- 만약 <leader> 키 입력 후 300ms 내에 다른 키를 누르지 않으면
-	-- 타임아웃이 발생할 수 있음
-	vim.o.timeout = true
-	vim.o.timeoutlen = 300
+	-- 입력 대기 시간(timeoutlen)은 config/basic.lua에서 관리
 
-	-- (2) 색상 스킴 변경 시점에 WhichKeyValue 하이라이트 적용
+	-- 색상 스킴 변경 시점에 WhichKeyValue 하이라이트 적용
 	--      (WhichKeyValue는 which-key에서 key-value 표시 부분)
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		pattern = "*",
