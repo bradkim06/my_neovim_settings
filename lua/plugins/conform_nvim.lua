@@ -29,9 +29,9 @@ conform_nvim.config = function()
             python = { "ruff_format" },
             -- Markdown 파일에 prettier 사용
             markdown = { "prettier" },
-            -- JSON 및 JSONC 파일에 prettierd 사용
-            json = { "prettierd" },
-            jsonc = { "prettierd" },
+            -- JSON 및 JSONC 파일: prettierd 우선, 없으면 prettier
+            json = { "prettierd", "prettier", stop_after_first = true },
+            jsonc = { "prettierd", "prettier", stop_after_first = true },
             -- "_" 파일 타입: 별도의 포매터가 없는 파일에 대해 trim_whitespace 실행
             ["_"] = { "trim_whitespace" },
             -- 추가: bash 파일에 shfmt 사용
