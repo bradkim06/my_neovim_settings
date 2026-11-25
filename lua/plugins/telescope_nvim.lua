@@ -138,7 +138,7 @@ function M.config()
     -- (B) [신규] lspsaga를 대체하는 LSP 관련 매핑
     -- Telescope를 사용하는 매핑
     vim.keymap.set("n", "gd", builtin.lsp_definitions, map_opts("LSP: Peek Definition"))
-    vim.keymap.set("n", "gr", builtin.lsp_references, map_opts("LSP: Find References"))
+    vim.keymap.set("n", "grr", builtin.lsp_references, map_opts("LSP: Find References")) -- 0.11 기본 grr을 Telescope로 대체
     -- vim.keymap.set({ "n", "v" }, "<leader>ca", builtin.lsp_code_actions, map_opts("LSP: Code Action"))
     vim.keymap.set("n", "gG", builtin.diagnostics, map_opts("LSP: Workspace Diagnostics"))
 

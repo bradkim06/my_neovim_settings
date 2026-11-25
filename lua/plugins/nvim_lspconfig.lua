@@ -79,7 +79,7 @@ nvim_lspconfig.config = function()
 			"--fallback-style=llvm",
 			"--header-insertion=never",
 		},
-		filetypes = { "c", "cpp", "cxx", "cc" },
+		filetypes = { "c", "cpp" }, -- .cc/.cxx 등은 cpp filetype으로 인식됨
 		root_dir = root_with({ ".clangd", ".git" }, true),
 		single_file_support = true,
 	})

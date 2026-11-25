@@ -111,19 +111,20 @@ nvim   # 첫 실행 시 lazy.nvim과 플러그인, Mason이 LSP 서버를 자동
 | 키 | 동작 | 비고 |
 |---|---|---|
 | `gd` | 정의로 이동 | Telescope |
-| `gr` | 참조 목록 | Telescope |
+| `grr` | 참조 목록 | Telescope |
 | `gG` | 워크스페이스 진단 목록 | Telescope |
 | `<leader>rn` | 심볼 이름 변경 | |
 | `K` | Hover 문서 | Neovim 기본 |
 | `[d` / `]d` | 이전 / 다음 진단 | Neovim 기본 |
 | `<C-w>d` | 커서 위치 진단 팝업 | Neovim 기본 |
+| `grn` | 심볼 이름 변경 | Neovim 기본 |
 | `gra` | 코드 액션 | Neovim 기본 |
+| `grt` | 타입 정의로 이동 | Neovim 기본 |
 | `gri` | 구현으로 이동 | Neovim 기본 |
 | `gO` | 문서 심볼 | Neovim 기본 |
 | `<C-s>` (i) | 시그니처 도움말 | Neovim 기본 |
 | `:Format` | 수동 포맷 (범위 지정 가능) | conform |
 
-> `gr`이 매핑되어 있어 `grn`/`gra` 등 `gr`로 시작하는 기본 키는 `timeoutlen`(400ms) 동안 대기 후 동작할 수 있습니다.
 
 ### 자동완성 (nvim-cmp, Insert 모드)
 
