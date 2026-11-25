@@ -29,6 +29,6 @@ return {
 
 		-- lspsaga에서 사용하던 <leader>t 키매핑 설정
 		local opts = { noremap = true, silent = true, desc = "Toggle Terminal" }
-		vim.keymap.set({ "n", "t" }, "<leader>t", "<cmd>ToggleTerm<cr>", opts)
+		vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>", opts)
 	end,
 }
