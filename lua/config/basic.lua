@@ -69,6 +69,11 @@ end
 -----------------------------------------------------------
 -- 3. Python 인터프리터 설정
 -----------------------------------------------------------
+-- 사용하지 않는 remote plugin provider 비활성화 (시작 시간 단축, checkhealth 경고 제거)
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Neovim에서 사용할 Python3 인터프리터 경로 지정
 local python3_path = vim.fn.exepath("python3")
 
