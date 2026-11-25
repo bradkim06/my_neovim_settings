@@ -31,7 +31,9 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    opts = {},
+    opts = {
+        latex = { enabled = false }, -- latex 파서/변환기 미사용
+    },
 
     keys = {
         {
