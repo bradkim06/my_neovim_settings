@@ -5,9 +5,7 @@
 -- ===================================================================
 -- 1. 파일 타입 및 구문 강조 설정
 -- ===================================================================
--- 구문 강조 및 파일 타입 플러그인 활성화
-vim.cmd("syntax on")
-vim.cmd("filetype plugin on")
+-- 구문 강조 / filetype plugin은 Neovim 기본값으로 활성화되어 있음
 
 -- JSON 파일의 확장자를 jsonc 로 인식하도록 설정
 local jsonc_group = vim.api.nvim_create_augroup("JsoncFiletype", { clear = true })
@@ -135,7 +133,7 @@ vim.keymap.set("x", "#", [[:<C-u>lua _G.SetSearchPattern()<CR>?<CR>]], opts) -- 
 -----------------------------------------------------------
 -- 24-bit (True Color) 모드 활성화
 if os.getenv("TMUX") == nil and os.getenv("TERM_PROGRAM") ~= "Apple_Terminal" then
-	if vim.fn.has("termguicolors") then
+	if vim.fn.has("termguicolors") == 1 then
 		vim.o.termguicolors = true
 	end
 end
@@ -235,5 +233,3 @@ vim.keymap.set("n", "<leader>n", rename_file, { silent = true, desc = "Rename cu
 vim.keymap.set("n", "<F3>", ":!west build<cr>", opts) -- 빌드 실행
 vim.keymap.set("n", "<F4>", ":!west flash<cr>", opts) -- 플래시 실행
 
--- [6.4] Neovim TUI에서 True Color 사용 활성화
-vim.g.NVIM_TUI_ENABLE_TRUE_COLOR = 1

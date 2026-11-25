@@ -16,7 +16,7 @@ lualine_nvim.opts = {
 	-------------------------------------------------------
 	options = {
 		icons_enabled = true, -- 아이콘 사용 여부
-		theme = "tokyonight", -- 사용 테마 (tokyonight)
+		theme = "auto", -- 현재 colorscheme에 맞춰 자동 선택
 		component_separators = { left = "", right = "" }, -- 컴포넌트 구분자
 		section_separators = { left = "", right = "" }, -- 섹션 구분자
 		disabled_filetypes = {
