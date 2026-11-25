@@ -20,6 +20,7 @@ local nvim_lint = {
 		-------------------------------------------------------
 		-- 파일을 저장(BufWritePost)하거나 읽을 때(BufRead) 린터를 실행하도록 자동 명령을 생성합니다.
 		vim.api.nvim_create_autocmd({ "BufWritePost", "BufRead" }, {
+			group = vim.api.nvim_create_augroup("NvimLint", { clear = true }),
 			callback = function()
 				require("lint").try_lint()
 			end,
