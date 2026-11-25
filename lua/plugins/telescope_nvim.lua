@@ -4,7 +4,7 @@
 -----------------------------------------------------------
 local M = {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
+    branch = "master",
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "VeryLazy", -- Lazy.nvim에서 특정 이벤트가 발생할 때 로드
 }
