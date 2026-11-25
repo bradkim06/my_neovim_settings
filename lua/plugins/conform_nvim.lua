@@ -14,13 +14,6 @@ conform_nvim.config = function()
         -----------------------------------------------------------
         -- 1. 파일 타입별 포매터 설정
         -----------------------------------------------------------
-        formatters = {
-            clang_format = {
-                -- .clang-format 파일이 없을 때 사용할 커맨드 라인 인수
-                args = { "--style={IndentWidth: 4, UseTab: Never}" },
-            },
-        },
-
         formatters_by_ft = {
             -- C 및 C++ 파일에 clang_format 사용
             c = { "clang_format" },
@@ -35,7 +28,7 @@ conform_nvim.config = function()
             -- Python 파일: ruff_format이 사용 가능한 경우 사용, 아니면 isort와 black 조합 사용
             python = { "ruff_format" },
             -- Markdown 파일에 mdformat 사용
-            markdown = { "mdformat" },
+            markdown = { "prettier" },
             -- JSON 및 JSONC 파일에 prettierd 사용
             json = { "prettierd" },
             jsonc = { "prettierd" },
